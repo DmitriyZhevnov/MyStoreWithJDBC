@@ -11,6 +11,7 @@
     <title>Войти в аккаунт</title>
 </head>
 <body>
+<% session.setAttribute("currentUser", null); %>
 <form action="/homePage" method="POST" >
     Логин: <input type="text" size="25" name="login">
     <br/>

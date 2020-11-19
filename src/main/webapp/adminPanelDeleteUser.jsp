@@ -12,8 +12,10 @@
 </head>
 <body>
 <%@ page import="classes.Person" %>
+<%@ page import="classes.Storage" %>
 <% Person person = (Person) session.getAttribute("currentUser"); %>
-<% if(!person.getStatus().equals("admin")){
+<% if(!person.getStatus().equals("admin") || Storage.findPersonInStorageByLogin(person.getLogin()) == null){
+    session.setAttribute("currentUser", null);
     application.getRequestDispatcher("/Error").forward(request,response);
 }%>
 <form action="/admin" method="post">

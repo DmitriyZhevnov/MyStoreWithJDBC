@@ -23,7 +23,6 @@ public class PersonalPageServlet extends HttpServlet {
             } else if (person.getStatus().equals("admin")) {
                 getServletContext().getRequestDispatcher("/personalPageForAdmin.jsp").forward(req, resp);
             }
-
         } else {
             getServletContext().getRequestDispatcher("/loginPage.jsp").forward(req, resp);
         }
@@ -34,15 +33,13 @@ public class PersonalPageServlet extends HttpServlet {
         boolean correctValues = true;
         Validator validator = new Validator();
         Person person = (Person) req.getSession().getAttribute("currentUser");
-        String resultEnteringAge = validator.checkAgeForValid(req.getParameter("age"));
         String resultEnteringLogin = validator.checkLoginForValid(req.getParameter("login"));
         String resultEnteringPassword = validator.checkPasswordForValid(req.getParameter("password"));
-
-        if (resultEnteringAge.equals("ok")) {
+        try {
             Storage.findPersonInStorageByLogin(person.getLogin()).setAge(Integer.parseInt(req.getParameter("age")));
-        } else {
+        } catch (NumberFormatException e) {
             correctValues = false;
-            req.getSession().setAttribute("messageError", resultEnteringAge);
+            req.getSession().setAttribute("messageError", "Введите возраст цифрой.");
         }
         if (!req.getParameter("password").equals("")) {
             if (resultEnteringPassword.equals("ok")) {
@@ -68,17 +65,3 @@ public class PersonalPageServlet extends HttpServlet {
         }
     }
 }
-
-//    @Override
-//    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        Person person =(Person) req.getSession().getAttribute("currentUser");
-//        Storage.findPersonInStorageByLogin(person.getLogin()).setAge(Integer.parseInt(req.getParameter("age")));
-//        Storage.findPersonInStorageByLogin(person.getLogin()).setName(req.getParameter("name"));
-//        Storage.findPersonInStorageByLogin(person.getLogin()).setLogin(req.getParameter("login"));
-//        System.out.println(Storage.findPersonInStorageByLogin(req.getParameter("login")));
-//        if (req.getParameter("password") != ""){
-//            Storage.findPersonInStorageByLogin(person.getLogin()).setPassword(req.getParameter("password"));
-//        }
-//        req.getSession().setAttribute("currentUser", Storage.findPersonInStorageByLogin(req.getParameter("login")));
-//        doGet(req, resp);
-//    }

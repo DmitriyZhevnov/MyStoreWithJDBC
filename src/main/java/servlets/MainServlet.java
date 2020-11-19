@@ -11,7 +11,6 @@ import java.io.IOException;
 
 @WebServlet("/login")
 public class MainServlet extends HttpServlet {
-
     private Storage storage;
 
     @Override

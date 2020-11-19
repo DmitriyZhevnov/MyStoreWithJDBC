@@ -12,7 +12,12 @@
 </head>
 <body>
 <%@ page import="classes.Person" %>
+<%@ page import="classes.Storage" %>
 <% Person person = (Person) session.getAttribute("currentUser"); %>
+<% if(Storage.findPersonInStorageByLogin(person.getLogin()) == null){
+    session.setAttribute("currentUser", null);
+    application.getRequestDispatcher("/Error").forward(request,response);
+}%>
 <div align="center">
 <h2>Информация о Вас</h2>
 <p> Имя:  <%= person.getName() %> </p>

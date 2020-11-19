@@ -11,6 +11,7 @@
     <title>Войти в аккаунт</title>
 </head>
 <body>
+<% session.setAttribute("currentUser", null); %>
 <p style="color:#bf3b3b">Логин и пароль введены не верно</p>
 <form action="/homePage" method="POST" >
     Логин: <input type="text" size="25" name="login">

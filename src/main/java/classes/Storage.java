@@ -21,12 +21,11 @@ public class Storage {
     }
 
     public static Person findPersonInStorageByLogin(String login) {
-     if (userStorage.stream().anyMatch(s->s.getLogin().equals(login))){
-         return userStorage.stream().filter(s -> s.getLogin().equals(login)).collect(Collectors.toList()).get(0);
-     } else {
-         return null;
-     }
-
+        if (userStorage.stream().anyMatch(s -> s.getLogin().equals(login))) {
+            return userStorage.stream().filter(s -> s.getLogin().equals(login)).collect(Collectors.toList()).get(0);
+        } else {
+            return null;
+        }
     }
 
     public static List<Person> getUserStorage() {
