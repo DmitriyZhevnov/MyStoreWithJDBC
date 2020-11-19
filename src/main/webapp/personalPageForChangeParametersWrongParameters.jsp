@@ -12,9 +12,9 @@
 </head>
 <body>
 <%@ page import="classes.Person" %>
-<%@ page import="classes.Storage" %>
+<%@ page import="classes.StorageOfUsers" %>
 <% Person person = (Person) session.getAttribute("currentUser"); %>
-<% if(Storage.findPersonInStorageByLogin(person.getLogin()) == null){
+<% if(StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null){
     session.setAttribute("currentUser", null);
     application.getRequestDispatcher("/Error").forward(request,response);
 }%>

@@ -1,7 +1,7 @@
 package servlets;
 
 import classes.Person;
-import classes.Storage;
+import classes.StorageOfUsers;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +25,7 @@ public class AdminPanelServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if ((req.getParameter("operation")).equals("changeStatus")) {
-            Person person = Storage.findPersonInStorageByLogin(req.getParameter("login"));
+            Person person = StorageOfUsers.findPersonInStorageByLogin(req.getParameter("login"));
             if (person == null) {
                 getServletContext().getRequestDispatcher("/adminPanelChangeStatusWrongLogin.jsp").forward(req, resp);
             } else {
@@ -38,11 +38,11 @@ public class AdminPanelServlet extends HttpServlet {
             }
         } else if ((req.getParameter("operation")).equals("deleteUser")) {
             req.getParameter("login");
-            Person person = Storage.findPersonInStorageByLogin(req.getParameter("login"));
+            Person person = StorageOfUsers.findPersonInStorageByLogin(req.getParameter("login"));
             if (person == null) {
                 getServletContext().getRequestDispatcher("/adminPanelDeleteUserWrongLogin.jsp").forward(req, resp);
             } else {
-                Storage.getUserStorage().remove(Storage.findPersonInStorageByLogin(req.getParameter("login")));
+                StorageOfUsers.getUserStorage().remove(StorageOfUsers.findPersonInStorageByLogin(req.getParameter("login")));
                 doGet(req, resp);
             }
         }

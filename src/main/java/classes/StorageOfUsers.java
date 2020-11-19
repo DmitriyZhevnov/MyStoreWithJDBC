@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Storage {
+public class StorageOfUsers {
     private static List<Person> userStorage;
 
-    public Storage() {
+    public StorageOfUsers() {
         userStorage = new ArrayList<>();
         userStorage.add(new Person("Dmitriy", 25, "Tim04", "123456", "admin"));
     }

@@ -1,7 +1,7 @@
 package servlets;
 
 import classes.Person;
-import classes.Storage;
+import classes.StorageOfUsers;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,8 +18,8 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Person person;
-        if (Storage.checkLoginAndPassword(req.getParameter("login"), req.getParameter("password"))) {
-            person = Storage.findPersonInStorageByLogin((req.getParameter("login")));
+        if (StorageOfUsers.checkLoginAndPassword(req.getParameter("login"), req.getParameter("password"))) {
+            person = StorageOfUsers.findPersonInStorageByLogin((req.getParameter("login")));
             session.setAttribute("currentUser", person);
             getServletContext().getRequestDispatcher("/mainPage.jsp").forward(req, resp);
         } else {

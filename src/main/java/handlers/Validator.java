@@ -1,6 +1,6 @@
 package handlers;
 
-import classes.Storage;
+import classes.StorageOfUsers;
 
 import java.util.regex.Pattern;
 
@@ -18,7 +18,7 @@ public class Validator {
                 String punktMarks = "[\\da-zA-Zа-яёА-ЯЁ_]+";
                 if (Pattern.matches(punktMarks, login) == false) {
                     return "Логин должен содержать только: буквы, цифры и нижнее подчёркивание";
-                } else if (Storage.getUserStorage().stream().anyMatch(s->s.getLogin().equals(login))) {
+                } else if (StorageOfUsers.getUserStorage().stream().anyMatch(s->s.getLogin().equals(login))) {
                     return "Такой логин уже существует";
                 } else {
                     return "ok";

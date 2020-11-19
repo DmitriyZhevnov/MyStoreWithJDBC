@@ -1,6 +1,6 @@
 package servlets;
 
-import classes.Storage;
+import classes.StorageOfUsers;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,12 +11,12 @@ import java.io.IOException;
 
 @WebServlet("/login")
 public class MainServlet extends HttpServlet {
-    private Storage storage;
+    private StorageOfUsers storage;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        storage = new Storage();
+        storage = new StorageOfUsers();
     }
 
     @Override

@@ -1,6 +1,6 @@
 package servlets;
 
-import classes.Storage;
+import classes.StorageOfUsers;
 import handlers.Validator;
 
 import javax.servlet.ServletException;
@@ -27,7 +27,7 @@ public class RegistrationServlet extends HttpServlet {
         if (resultEnteringLogin.equals("ok")) {
             if (resultEnteringPassword.equals("ok")) {
                 if (resultEnteringAge.equals("ok")) {
-                    Storage.addUser(req.getParameter("name"), Integer.parseInt(req.getParameter("age")), req.getParameter("login"), req.getParameter("password"));
+                    StorageOfUsers.addUser(req.getParameter("name"), Integer.parseInt(req.getParameter("age")), req.getParameter("login"), req.getParameter("password"));
                     getServletContext().getRequestDispatcher("/loginPage.jsp").forward(req, resp);
                 } else {
                     req.getSession().setAttribute("messageError", resultEnteringAge);

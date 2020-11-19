@@ -1,7 +1,7 @@
 package servlets;
 
 import classes.Person;
-import classes.Storage;
+import classes.StorageOfUsers;
 import handlers.Validator;
 
 import javax.servlet.ServletException;
@@ -36,14 +36,14 @@ public class PersonalPageServlet extends HttpServlet {
         String resultEnteringLogin = validator.checkLoginForValid(req.getParameter("login"));
         String resultEnteringPassword = validator.checkPasswordForValid(req.getParameter("password"));
         try {
-            Storage.findPersonInStorageByLogin(person.getLogin()).setAge(Integer.parseInt(req.getParameter("age")));
+            StorageOfUsers.findPersonInStorageByLogin(person.getLogin()).setAge(Integer.parseInt(req.getParameter("age")));
         } catch (NumberFormatException e) {
             correctValues = false;
             req.getSession().setAttribute("messageError", "Введите возраст цифрой.");
         }
         if (!req.getParameter("password").equals("")) {
             if (resultEnteringPassword.equals("ok")) {
-                Storage.findPersonInStorageByLogin(person.getLogin()).setPassword(req.getParameter("password"));
+                StorageOfUsers.findPersonInStorageByLogin(person.getLogin()).setPassword(req.getParameter("password"));
             } else {
                 correctValues = false;
                 req.getSession().setAttribute("messageError", resultEnteringPassword);
@@ -51,13 +51,13 @@ public class PersonalPageServlet extends HttpServlet {
         }
         if (!person.getLogin().equals(req.getParameter("login"))) {
             if (resultEnteringLogin.equals("ok")) {
-                Storage.findPersonInStorageByLogin(person.getLogin()).setLogin(req.getParameter("login"));
+                StorageOfUsers.findPersonInStorageByLogin(person.getLogin()).setLogin(req.getParameter("login"));
             } else {
                 correctValues = false;
                 req.getSession().setAttribute("messageError", resultEnteringLogin);
             }
         }
-        Storage.findPersonInStorageByLogin(person.getLogin()).setName(req.getParameter("name"));
+        StorageOfUsers.findPersonInStorageByLogin(person.getLogin()).setName(req.getParameter("name"));
         if (correctValues) {
             doGet(req, resp);
         } else {
