@@ -7,6 +7,12 @@ import java.util.stream.Collectors;
 public class StorageOfProducts {
     private static List<Product> storage = new ArrayList<>();
 
+    public StorageOfProducts(){
+        addProduct(new Product(1, "Milk", "2.3%",1.50), 15);
+        addProduct(new Product(2, "Water", "sparkling ",1.00), 10);
+        addProduct(new Product(3, "Apple", "red",0.10), 5);
+    }
+
     public static void addProduct(Product product, int countToAdd) {
         if (storage.stream().anyMatch(s -> s.getId() == product.getId())) {
             int firstCount = StorageOfProducts.getProductInStorage(product).getCount();
