@@ -9,7 +9,8 @@ public class StorageOfUsers {
 
     public StorageOfUsers() {
         userStorage = new ArrayList<>();
-        userStorage.add(new Person("Dmitriy", 25, "Tim04", "123456", "admin"));
+        //userStorage.add(new Person("Dmitriy", 25, "Tim04", "123456", "admin"));
+        userStorage.add(new Person("Dmitriy", 25, "1", "1", "admin"));
     }
 
     public static void addUser(String name, int age, String login, String password) {

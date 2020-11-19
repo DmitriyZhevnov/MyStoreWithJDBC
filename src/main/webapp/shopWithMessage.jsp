@@ -14,6 +14,8 @@
 <body>
 <%@page import="classes.StorageOfProducts" %>
 <%@ page import="classes.Product" %>
+<%String message = (String) session.getAttribute("shopMessage");%>
+<p align="center"><%= message%></p>
 <table border="1" width="100%" cellpadding="5">
     <tr>
         <th width="25%">Название</th>

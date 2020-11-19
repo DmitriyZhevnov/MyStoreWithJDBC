@@ -19,7 +19,6 @@
     application.getRequestDispatcher("/Error").forward(request,response);
 }%>
 <form action="/admin" method="post">
-
     Введите логин пользователя: <input type="text" name="login">
     <br/>
     <input type="hidden" name="operation" value="changeStatus">

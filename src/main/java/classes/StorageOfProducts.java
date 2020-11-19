@@ -23,6 +23,13 @@ public class StorageOfProducts {
         }
     }
 
+    public static Product getProductInStorageById(int id){
+        if (storage.stream().anyMatch(s -> s.getId() == id)) {
+            return storage.stream().filter(s -> s.getId() == id).collect(Collectors.toList()).get(0);
+        } else {
+            return null;
+        }
+    }
     public static Product getProductInStorage(Product product) {
         if (storage.stream().anyMatch(s -> s.getId() == product.getId())) {
             return storage.stream().filter(s -> s.getId() == product.getId()).collect(Collectors.toList()).get(0);

@@ -19,7 +19,7 @@ public class MainServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         storageOfUsers = new StorageOfUsers();
-        storageOfProducts = new StorageOfProducts();
+        //storageOfProducts = new StorageOfProducts();
     }
 
     @Override

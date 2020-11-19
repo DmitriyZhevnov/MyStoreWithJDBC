@@ -25,6 +25,7 @@
 <form>
     <br/>
     <p><a href="/myPage">Мой аккаунт</a></p>
+    <p><a href="/shop">Магазин</a></p>
     <p><a href="/login">Выйти из учётной записи</a></p>
 </form>
 </div>

@@ -10,16 +10,14 @@ public class Basket {
     public Basket() {
     }
 
-//    public Basket(Basket basket) {
-//        this.basket = basket.getBasket();
-//    }
-
-    public void addProductToBasket(Product product, int count) {
-        if (StorageOfProducts.getProductInStorage(product).getCount() >= count) {
-            basket.add(new Product(product));
-            getProductFromBasket(product).setCount(count);
+    public void addProductToBasket(Product product, int countToAdd) {
+        if (basket.stream().anyMatch(s -> s.getId() == product.getId())) {
+            int firstCount = basket.stream().filter(s -> s.getId()== product.getId()).collect(Collectors.toList())
+                    .get(0).getCount();
+            getProductFromBasket(product).setCount(firstCount + countToAdd);
         } else {
-            System.out.println("Столько нет");
+            basket.add(new Product(product));
+            getProductFromBasket(product).setCount(countToAdd);
         }
     }
 
@@ -40,5 +38,12 @@ public class Basket {
 
     public List<Product> getBasket() {
         return basket;
+    }
+
+    @Override
+    public String toString() {
+        return "Basket{" +
+                "basket=" + basket +
+                '}';
     }
 }
