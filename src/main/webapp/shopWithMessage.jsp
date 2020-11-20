@@ -46,5 +46,6 @@
     %>
 </table>
 <p><a href="/basket">В корзину</a></p>
+<p><a href="/mainPage.jsp">На главную страницу</a></p>
 </body>
 </html>

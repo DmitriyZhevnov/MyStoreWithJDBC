@@ -21,10 +21,11 @@ public class BasketServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Person person = (Person) req.getSession().getAttribute("currentUser");
-        Product thisProductInBasket = person.getBasket().getProductByIdFromBasket(Integer
-                .parseInt(req.getParameter("idProduct")));
+
         if (req.getParameter("operationInBasket").equals("modifyProduct")) {
             try {
+                Product thisProductInBasket = person.getBasket().getProductByIdFromBasket(Integer
+                        .parseInt(req.getParameter("idProduct")));
                 int countInRequest = Integer.parseInt(req.getParameter("count"));
                 int countOfThisProductInStorage = StorageOfProducts.getProductInStorage(thisProductInBasket).getCount();
                 if (countInRequest == 0) {
@@ -46,10 +47,13 @@ public class BasketServlet extends HttpServlet {
                 getServletContext().getRequestDispatcher("/basketWithMessage.jsp").forward(req, resp);
             }
         } else if (req.getParameter("operationInBasket").equals("deleteProduct")) {
+            Product thisProductInBasket = person.getBasket().getProductByIdFromBasket(Integer
+                    .parseInt(req.getParameter("idProduct")));
             person.getBasket().removeProductFromBasket(thisProductInBasket);
             req.getSession().setAttribute("shopMessage", thisProductInBasket.getName()+ " был удален из корзины");
             getServletContext().getRequestDispatcher("/basketWithMessage.jsp").forward(req, resp);
-
+        } else if (req.getParameter("operationInBasket").equals("pay")) {
+            person.buyBasket();
         }
     }
 }

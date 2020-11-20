@@ -14,6 +14,14 @@ public class Order {
         dateTime = LocalDateTime.now();
     }
 
+    public double getTotalCostOfOrder(){
+        double totalCost = 0;
+        for (int i = 0; i < listOfProducts.size(); i++){
+            totalCost += getListOfProducts().get(i).getPrice() * getListOfProducts().get(i).getCount();
+        }
+        return totalCost;
+    }
+
     public int getNumber() {
         return number;
     }
@@ -24,6 +32,13 @@ public class Order {
 
     public List<Product> getListOfProducts() {
         return listOfProducts;
+    }
+    public String printListOfProducts(){
+        StringBuilder listForReturn = new StringBuilder("");
+        for (Product product : listOfProducts){
+            listForReturn.append("Название: " + product.getName() + ". Количество: " + product.getCount() + "\n");
+        }
+        return listForReturn.toString();
     }
 
     public void setListOfProducts(List<Product> listOfProducts) {
@@ -37,4 +52,5 @@ public class Order {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
+
 }

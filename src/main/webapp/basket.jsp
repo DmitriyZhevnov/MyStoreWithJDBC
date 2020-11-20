@@ -60,6 +60,14 @@
         }
     %>
 </table>
-<p><a href="/shop">В магазин</a> <h2 align="right">Итого к оплате: <%= String.format("%.2f",basket.getTotalCostOfBasket()) %></h2></p>
+<h2 align="right">Итого к оплате: <%= String.format("%.2f",basket.getTotalCostOfBasket()) %></h2>
+<h2 align="right">
+<form action='/basket' method='POST'>
+    <input type="hidden" name="operationInBasket" value="pay">
+    <input type='submit' value='Оплатить' />
+</form>
+</h2>
+<p><a href="/shop">В магазин</a></p>
+<p><a href="/mainPage.jsp">На главную страницу</a></p>
 </body>
 </html>
