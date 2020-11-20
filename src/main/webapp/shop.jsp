@@ -43,5 +43,6 @@
         }
     %>
 </table>
+<p><a href="/basket">В корзину</a></p>
 </body>
 </html>

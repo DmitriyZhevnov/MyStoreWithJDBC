@@ -12,7 +12,7 @@ public class Basket {
 
     public void addProductToBasket(Product product, int countToAdd) {
         if (basket.stream().anyMatch(s -> s.getId() == product.getId())) {
-            int firstCount = basket.stream().filter(s -> s.getId()== product.getId()).collect(Collectors.toList())
+            int firstCount = basket.stream().filter(s -> s.getId() == product.getId()).collect(Collectors.toList())
                     .get(0).getCount();
             getProductFromBasket(product).setCount(firstCount + countToAdd);
         } else {
@@ -25,8 +25,21 @@ public class Basket {
         basket.clear();
     }
 
+    public Product getProductByIdFromBasket(int id) {
+        if (basket.stream().anyMatch(s -> s.getId() == id)) {
+            return basket.stream().filter(s -> s.getId() == id).collect(Collectors.toList()).get(0);
+        } else {
+            return null;
+        }
+    }
+
     public Product getProductFromBasket(Product product) {
-        return basket.stream().filter(s -> s.getId() == product.getId()).collect(Collectors.toList()).get(0);
+        if (basket.stream().anyMatch(s -> s.getId() == product.getId())) {
+            return basket.stream().filter(s -> s.getId() == product.getId()).collect(Collectors.toList()).get(0);
+
+        } else {
+            return null;
+        }
     }
 
     public void buyAllThatInBasket() {

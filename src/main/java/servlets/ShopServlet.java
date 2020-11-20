@@ -30,21 +30,30 @@ public class ShopServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Person person = (Person) req.getSession().getAttribute("currentUser");
         try {
-            Product thisProduct = StorageOfProducts.getProductInStorageById(Integer
+            Product thisProductInStorage = StorageOfProducts.getProductInStorageById(Integer
                     .parseInt(req.getParameter("idProduct")));
-            int countOfThisProduct = thisProduct.getCount();
-            if (countOfThisProduct < Integer.parseInt(req.getParameter("count"))){
+            int countOfThisProductInStorage = thisProductInStorage.getCount();
+            int countInRequest = Integer.parseInt(req.getParameter("count"));
+            if (countOfThisProductInStorage < countInRequest) {
                 req.getSession().setAttribute("shopMessage", "Приносим свои извинения. На складе осталось "
-                        + countOfThisProduct + " единиц. Товар не был добавлен в корзину.");
+                        + countOfThisProductInStorage + " единиц. Товар не был добавлен в корзину.");
+            } else if (person.getBasket().getProductFromBasket(thisProductInStorage) != null) {
+                int countOfThisProductInBasket = person.getBasket().getProductFromBasket(thisProductInStorage).getCount();
+                if (countOfThisProductInStorage < countInRequest + countOfThisProductInBasket) {
+                    req.getSession().setAttribute("shopMessage", "Приносим свои извинения. На складе доступных осталось "
+                            + (countOfThisProductInStorage - countOfThisProductInBasket) + " единиц. Товар не был добавлен в корзину.");
+                } else {
+                    person.getBasket().addProductToBasket(thisProductInStorage, countInRequest);
+                    req.getSession().setAttribute("shopMessage", (thisProductInStorage.getName() + " добавлено в корзину."));
+                }
             } else {
-                person.getBasket().addProductToBasket(thisProduct, Integer.parseInt(req.getParameter("count")));
-                req.getSession().setAttribute("shopMessage", "добавлено в корзину");
+                person.getBasket().addProductToBasket(thisProductInStorage, countInRequest);
+                req.getSession().setAttribute("shopMessage", (thisProductInStorage.getName() + " добавлено в корзину."));
             }
             getServletContext().getRequestDispatcher("/shopWithMessage.jsp").forward(req, resp);
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             req.getSession().setAttribute("shopMessage", "Количество было введено не корректно.");
             getServletContext().getRequestDispatcher("/shopWithMessage.jsp").forward(req, resp);
         }
-        System.out.println(person.getBasket().toString());
     }
 }
