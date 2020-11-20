@@ -21,6 +21,14 @@ public class Person {
         orderHistory = new OrderHistory();
     }
 
+    public OrderHistory getOrderHistory() {
+        return orderHistory;
+    }
+
+    public void setOrderHistory(OrderHistory orderHistory) {
+        this.orderHistory = orderHistory;
+    }
+
     public void buyBasket() {
         basket.buyAllThatInBasket();
         orderHistory.addNewOrder(basket.getBasket());

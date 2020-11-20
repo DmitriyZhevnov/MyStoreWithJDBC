@@ -25,6 +25,7 @@
 <p> Возраст:  <%= person.getAge() %> </p>
 </div>
 <p><a href="personalPageForChangeParameters.jsp">Изменить данные</a></p>
+<p><a href="orderHistory.jsp">История заказов</a></p>
 <p><a href="mainPage.jsp">На главную страницу</a></p>
 <p><a href="/login">Выйти из учётной записи</a></p>
 </body>
