@@ -26,6 +26,7 @@
         <th width="5%">Количество</th>
         <th width="5%">Итого</th>
         <th width="20%">Изменить количество</th>
+        <th width="5%">Удалить</th>
     </tr>
     <%
         for (int i = 0; i < basket.getBasket().size(); i++) {
@@ -43,9 +44,17 @@
         </td>
         <td>
             <form action='/basket' method='POST'>
+                <input type="hidden" name="operationInBasket" value="modifyProduct">
                 <input name="count" value="<%= basket.getBasket().get(i).getCount()%>" />
                 <input type="hidden" name="idProduct" value="<%=basket.getBasket().get(i).getId() %>" />
                 <input type='submit' value='Изменить' />
+            </form>
+        </td>
+        <td>
+            <form action='/basket' method='POST'>
+                <input type="hidden" name="operationInBasket" value="deleteProduct">
+                <input type="hidden" name="idProduct" value="<%=basket.getBasket().get(i).getId() %>" />
+                <input type='submit' value='Удалить' />
             </form>
         </td>
     </tr>

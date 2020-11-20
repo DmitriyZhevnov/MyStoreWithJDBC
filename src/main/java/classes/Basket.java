@@ -7,9 +7,6 @@ import java.util.stream.Collectors;
 public class Basket {
     private List<Product> basket = new ArrayList<>();
 
-    public Basket() {
-    }
-
     public void addProductToBasket(Product product, int countToAdd) {
         if (basket.stream().anyMatch(s -> s.getId() == product.getId())) {
             int firstCount = basket.stream().filter(s -> s.getId() == product.getId()).collect(Collectors.toList())
@@ -36,6 +33,9 @@ public class Basket {
         basket.clear();
     }
 
+    public void removeProductFromBasket(Product product){
+        basket.remove(product);
+    }
     public Product getProductByIdFromBasket(int id) {
         if (basket.stream().anyMatch(s -> s.getId() == id)) {
             return basket.stream().filter(s -> s.getId() == id).collect(Collectors.toList()).get(0);
@@ -62,12 +62,5 @@ public class Basket {
 
     public List<Product> getBasket() {
         return basket;
-    }
-
-    @Override
-    public String toString() {
-        return "Basket{" +
-                "basket=" + basket +
-                '}';
     }
 }
