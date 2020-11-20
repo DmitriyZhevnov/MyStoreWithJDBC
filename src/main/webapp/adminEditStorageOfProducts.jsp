@@ -8,8 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Магазин</title>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <title>Редактировать хранилище</title>
 </head>
 <body>
 <%@page import="classes.StorageOfProducts" %>
@@ -18,11 +17,10 @@
         <th width="25%">Название</th>
         <th width="25%">Описание</th>
         <th width="5%">Цена</th>
-        <th width="20%">Добавить в корзину</th>
+        <th width="20%">Редактировать</th>
     </tr>
     <%
         for (int i = 0; i < StorageOfProducts.returnStorage().size(); i++) {
-            if (StorageOfProducts.returnStorage().get(i).getCount() > 0) {
     %>
     <tr>
         <td><%= StorageOfProducts.returnStorage().get(i).getName()%>
@@ -32,15 +30,15 @@
         <td><%= StorageOfProducts.returnStorage().get(i).getPrice()%>
         </td>
         <td>
-            <form action='/shop' method='POST'>
+            <form action='/admin' method='POST'>
                 <input name="count"/>
+                <input type="hidden" name="operation" value="modifyProduct">
                 <input type="hidden" name="idProduct" value="<%=StorageOfProducts.returnStorage().get(i).getId() %>"/>
-                <input type='submit' value='Добавить'/>
+                <input type='submit' value='Редактировать'/>
             </form>
         </td>
     </tr>
     <%
-            }
         }
     %>
 </table>

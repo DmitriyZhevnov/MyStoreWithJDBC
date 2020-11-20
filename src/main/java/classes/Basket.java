@@ -55,8 +55,9 @@ public class Basket {
 
     public void buyAllThatInBasket() {
         for (Product product : basket) {
-            int firstCount = StorageOfProducts.getProductInStorage(product).getCount();
-            StorageOfProducts.getProductInStorage(product).setCount(firstCount - product.getCount());
+            Product thisProductInStorage = StorageOfProducts.getProductInStorage(product);
+            int firstCountOfCountInStorage = thisProductInStorage.getCount();
+            StorageOfProducts.getProductInStorage(product).setCount(firstCountOfCountInStorage - product.getCount());
         }
     }
 

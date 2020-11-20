@@ -16,7 +16,7 @@ public class BasketServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Person person = (Person) req.getSession().getAttribute("currentUser");
-        if (person.getBasket().getBasket().size() == 0){
+        if (person.getBasket().getBasket().size() == 0) {
             getServletContext().getRequestDispatcher("/basketEmpty.jsp").forward(req, resp);
         } else {
             getServletContext().getRequestDispatcher("/basket.jsp").forward(req, resp);
@@ -56,7 +56,7 @@ public class BasketServlet extends HttpServlet {
             Product thisProductInBasket = person.getBasket().getProductByIdFromBasket(Integer
                     .parseInt(req.getParameter("idProduct")));
             person.getBasket().removeProductFromBasket(thisProductInBasket);
-            req.getSession().setAttribute("shopMessage", thisProductInBasket.getName()+ " был удален из корзины");
+            req.getSession().setAttribute("shopMessage", thisProductInBasket.getName() + " был удален из корзины");
             getServletContext().getRequestDispatcher("/basketWithMessage.jsp").forward(req, resp);
         } else if (req.getParameter("operationInBasket").equals("pay")) {
             person.buyBasket();

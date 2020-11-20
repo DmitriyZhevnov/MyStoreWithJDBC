@@ -1,6 +1,7 @@
 package servlets;
 
 import classes.Person;
+import classes.StorageOfProducts;
 import classes.StorageOfUsers;
 
 import javax.servlet.ServletException;
@@ -45,6 +46,10 @@ public class AdminPanelServlet extends HttpServlet {
                 StorageOfUsers.getUserStorage().remove(StorageOfUsers.findPersonInStorageByLogin(req.getParameter("login")));
                 doGet(req, resp);
             }
+        } else if ((req.getParameter("operation")).equals("modifyProduct")) {
+            req.getSession().setAttribute("productToModify", StorageOfProducts
+                    .getProductInStorageById(Integer.parseInt(req.getParameter("idProduct"))));
+            getServletContext().getRequestDispatcher("/adminEditStorageEditProduct.jsp").forward(req,resp);
         }
     }
 }

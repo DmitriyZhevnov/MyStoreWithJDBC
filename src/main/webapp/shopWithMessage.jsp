@@ -26,7 +26,7 @@
     </tr>
     <%
         for (int i = 0; i < StorageOfProducts.returnStorage().size(); i++) {
-            if (StorageOfProducts.returnStorage().get(i).getCount() != 0) {
+            if (StorageOfProducts.returnStorage().get(i).getCount() > 0) {
     %>
     <tr>
         <td><%= StorageOfProducts.returnStorage().get(i).getName()%>

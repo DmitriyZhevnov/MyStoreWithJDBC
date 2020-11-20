@@ -21,6 +21,8 @@
 <a href="/adminPanelChangeStatus.jsp">Сделать пользователя Администратором</a>
 <br/>
 <a href="/adminPanelDeleteUser.jsp">Удалить пользователя</a>
+<br/> <br/>
+<a href="/adminEditStorageOfProducts.jsp">Редактировать хранилище</a>
 <p><a href="personalPageForAdmin.jsp">Назад</a></p>
 </body>
 </html>
