@@ -54,6 +54,7 @@ public class BasketServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/basketWithMessage.jsp").forward(req, resp);
         } else if (req.getParameter("operationInBasket").equals("pay")) {
             person.buyBasket();
+            getServletContext().getRequestDispatcher("/successfulOrder.jsp").forward(req, resp);
         }
     }
 }
