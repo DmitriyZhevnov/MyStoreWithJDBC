@@ -37,7 +37,7 @@
         </td>
         <td><%= basket.getBasket().get(i).getCount()%>
         </td>
-        <td><%= String.format("%.2f",basket.getBasket().get(i).getCount() * basket.getBasket().get(i).getPrice())%>
+        <td><%= String.format("%.2f",basket.getTotalCostOfProduct(basket.getBasket().get(i)))%>
         </td>
         <td>
             <form action='/basket' method='POST'>
@@ -51,6 +51,6 @@
         }
     %>
 </table>
-<p><a href="/shop">В магазин</a></p>
+<p><a href="/shop">В магазин</a> <h2 align="right">Итого к оплате: <%= String.format("%.2f",basket.getTotalCostOfBasket()) %></h2></p>
 </body>
 </html>

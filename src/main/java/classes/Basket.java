@@ -21,6 +21,17 @@ public class Basket {
         }
     }
 
+    public double getTotalCostOfProduct(Product product){
+        return  getProductFromBasket(product).getCount() * getProductFromBasket(product).getPrice();
+    }
+    public double getTotalCostOfBasket(){
+        double totalCost = 0;
+        for (int i = 0; i < basket.size(); i++){
+            totalCost += getTotalCostOfProduct(basket.get(i));
+        }
+        return totalCost;
+    }
+
     public void removeAllFromBasket() {
         basket.clear();
     }

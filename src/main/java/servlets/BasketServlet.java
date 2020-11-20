@@ -28,7 +28,7 @@ public class BasketServlet extends HttpServlet {
             int countOfThisProductInStorage = StorageOfProducts.getProductInStorage(thisProductInBasket).getCount();
             if (countInRequest == 0) {
                 //ссылкаемся на шопССоощением. рекомендуем удалить
-            } else if (countInRequest > 1) {
+            } else if (countInRequest >= 1) {
                 if (countInRequest > countOfThisProductInStorage) {
                     req.getSession().setAttribute("shopMessage", "Приносим свои извинения. На складе осталось "
                             + countOfThisProductInStorage + " единиц(а). Изменения не вступили в силу.");
