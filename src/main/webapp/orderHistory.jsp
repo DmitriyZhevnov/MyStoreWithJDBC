@@ -16,6 +16,9 @@
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <% Person person = (Person) session.getAttribute("currentUser");
     OrderHistory orderHistory = person.getOrderHistory();
+    if (orderHistory.getOrderHistory().size() == 0){
+        request.getServletContext().getRequestDispatcher("/orderHistoryEmpty.jsp").forward(request, response);
+    }
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");%>
 
 <table border="1" width="100%" cellpadding="5">

@@ -23,6 +23,7 @@
     </tr>
     <%
         for (int i = 0; i < StorageOfProducts.returnStorage().size(); i++) {
+            if (StorageOfProducts.returnStorage().get(i).getCount() != 0) {
     %>
     <tr>
         <td><%= StorageOfProducts.returnStorage().get(i).getName()%>
@@ -33,13 +34,14 @@
         </td>
         <td>
             <form action='/shop' method='POST'>
-                <input name="count" />
-                <input type="hidden" name="idProduct" value="<%=StorageOfProducts.returnStorage().get(i).getId() %>" />
-                <input type='submit' value='Добавить' />
+                <input name="count"/>
+                <input type="hidden" name="idProduct" value="<%=StorageOfProducts.returnStorage().get(i).getId() %>"/>
+                <input type='submit' value='Добавить'/>
             </form>
         </td>
     </tr>
     <%
+            }
         }
     %>
 </table>

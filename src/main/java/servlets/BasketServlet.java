@@ -15,7 +15,13 @@ import java.io.IOException;
 public class BasketServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/basket.jsp").forward(req, resp);
+        Person person = (Person) req.getSession().getAttribute("currentUser");
+        if (person.getBasket().getBasket().size() == 0){
+            getServletContext().getRequestDispatcher("/basketEmpty.jsp").forward(req, resp);
+        } else {
+            getServletContext().getRequestDispatcher("/basket.jsp").forward(req, resp);
+        }
+
     }
 
     @Override
