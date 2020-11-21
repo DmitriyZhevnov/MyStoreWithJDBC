@@ -12,33 +12,39 @@
 </head>
 <body>
 <%String message = (String) session.getAttribute("message");%>
-<p align="center"><%= message%></p>
-    <%@page import="classes.StorageOfProducts" %>
-    <table border="1" align="left" cellpadding="4">
-        <tr>
-            <th>
-<p>Добавить товары на склад</p>
-<form action="/admin" method="post">
-    <select name="idProductToAdd">
-        <% for (int t = 0; t < StorageOfProducts.returnStorage().size(); t++) { %>
-        <option value="<%= StorageOfProducts.returnStorage().get(t).getId() %>">
-            <%= StorageOfProducts.returnStorage().get(t).getId()%>
-            - <%= StorageOfProducts.returnStorage().get(t).getName()%>
-        </option>
-        <% } %>
-    </select>
-    <input type="hidden" name="operation" value="addProduct">
-    <input type="text" name="countOfProductToAdd">
-    <input type="submit" value="Добавить"/>
-</form>
-</th>
-<th><p>Отсотрировать хранилище</p>
-    <form action="/admin" method="post">
-        <input type="hidden" name="operation" value="sortStorage">
-        <input type="submit" value="Сортировать"/>
-    </form>
-</th>
-</tr>
+<p align="center"><%= message%>
+</p>
+<%@page import="classes.StorageOfProducts" %>
+<table border="1" align="left" cellpadding="4">
+    <tr>
+        <th>
+            <p>Добавить товары на склад</p>
+            <form action="/admin" method="post">
+                <select name="idProductToAdd">
+                    <% for (int t = 0; t < StorageOfProducts.returnStorage().size(); t++) { %>
+                    <option value="<%= StorageOfProducts.returnStorage().get(t).getId() %>">
+                        <%= StorageOfProducts.returnStorage().get(t).getId()%>
+                        - <%= StorageOfProducts.returnStorage().get(t).getName()%>
+                    </option>
+                    <% } %>
+                </select>
+                <input type="hidden" name="operation" value="addProduct">
+                <input type="text" name="countOfProductToAdd">
+                <input type="submit" value="Добавить"/>
+            </form>
+        </th>
+        <th><p>Отсотрировать хранилище</p>
+            <form action="/admin" method="post">
+                <input type="hidden" name="operation" value="sortStorage">
+                <input type="submit" value="Сортировать"/>
+            </form>
+        </th>
+        <th><p>Добавить новый товар</p>
+            <form action="/adminAddProduct.jsp">
+                <input type="submit" value="Добавить"/>
+            </form>
+        </th>
+    </tr>
 </table>
 </br>
 <table border="1" width="100%" cellpadding="5">

@@ -4,6 +4,7 @@ import classes.Person;
 import classes.Product;
 import classes.StorageOfProducts;
 import classes.StorageOfUsers;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -88,6 +89,26 @@ public class AdminPanelServlet extends HttpServlet {
             StorageOfProducts.returnStorage().sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
             req.getSession().setAttribute("message", " Хранилище отсортировано");
             getServletContext().getRequestDispatcher("/adminEditStorageOfProductsWithMessage.jsp").forward(req, resp);
+        } else if (req.getParameter("operation").equals("addNewProduct")) {
+            if (req.getParameter("id").isEmpty() || req.getParameter("name").isEmpty() || req.getParameter("description").isEmpty() ||
+                    req.getParameter("price").isEmpty()) {
+                req.getSession().setAttribute("message", "Введите данные корректно.");
+                getServletContext().getRequestDispatcher("/adminAddProductWithMessage.jsp").forward(req, resp);
+            } else {
+                if (StorageOfProducts.returnStorage().stream().anyMatch(s -> s.getId() == Integer.parseInt(req.getParameter("id")))) {
+                    req.getSession().setAttribute("message", "Товар с этим ID уже есть. Новый товар не был добавлен.");
+                    getServletContext().getRequestDispatcher("/adminAddProductWithMessage.jsp").forward(req, resp);
+                } else try {
+                    StorageOfProducts.addProduct(new Product(Integer.parseInt(req.getParameter("id")), req.getParameter("name"), req.getParameter("description"), Double.parseDouble(req.getParameter("price"))), 0);
+                    req.getSession().setAttribute("message", "Товар " + req.getParameter("name") + " добавлен");
+                    getServletContext().getRequestDispatcher("/adminEditStorageOfProductsWithMessage.jsp").forward(req, resp);
+                } catch (NumberFormatException e) {
+                    req.getSession().setAttribute("message", "Введите данные корректно.");
+                    getServletContext().getRequestDispatcher("/adminAddProductWithMessage.jsp").forward(req, resp);
+                }
+            }
+
+
         }
     }
 }

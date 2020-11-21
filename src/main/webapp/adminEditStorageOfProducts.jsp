@@ -36,8 +36,7 @@
             </form>
         </th>
         <th><p>Добавить новый товар</p>
-            <form action="/admin" method="post">
-                <input type="hidden" name="operation" value="sortStorage">
+            <form action="/adminAddProduct.jsp">
                 <input type="submit" value="Добавить"/>
             </form>
         </th>
