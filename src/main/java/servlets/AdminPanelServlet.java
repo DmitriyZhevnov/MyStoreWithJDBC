@@ -1,6 +1,7 @@
 package servlets;
 
 import classes.Person;
+import classes.Product;
 import classes.StorageOfProducts;
 import classes.StorageOfUsers;
 
@@ -47,9 +48,22 @@ public class AdminPanelServlet extends HttpServlet {
                 doGet(req, resp);
             }
         } else if ((req.getParameter("operation")).equals("modifyProduct")) {
-            req.getSession().setAttribute("productToModify", StorageOfProducts
-                    .getProductInStorageById(Integer.parseInt(req.getParameter("idProduct"))));
-            getServletContext().getRequestDispatcher("/adminEditStorageEditProduct.jsp").forward(req,resp);
+            req.getSession().setAttribute("productToModify", StorageOfProducts.getProductInStorageById(Integer.parseInt(req.getParameter("idProductToModify"))));
+            getServletContext().getRequestDispatcher("/adminEditStorageEditProduct.jsp").forward(req, resp);
+        } else if ((req.getParameter("operation")).equals("modifyProductWithValues")) {
+            Product productToModify = StorageOfProducts.getProductInStorage((Product) req.getSession().getAttribute("productToModify"));
+            if (productToModify.getId() != Integer.parseInt(req.getParameter("id")) &&
+                    StorageOfProducts.returnStorage().stream().anyMatch(s -> s.getId() == Integer.parseInt(req.getParameter("id")))) {
+                req.getSession().setAttribute("message", "Такой ID товара уже есть. Все изменения не вступили в силу.");
+                getServletContext().getRequestDispatcher("/adminEditStorageEditProductWithMessage.jsp").forward(req, resp);
+            } else {
+                productToModify.setId(Integer.parseInt(req.getParameter("id")));
+                productToModify.setName(req.getParameter("name"));
+                productToModify.setDescription(req.getParameter("description"));
+                productToModify.setPrice(Double.parseDouble(req.getParameter("price")));
+                productToModify.setCount(Integer.parseInt(req.getParameter("count")));
+                getServletContext().getRequestDispatcher("/adminEditStorageOfProducts.jsp").forward(req, resp);
+            }
         }
     }
 }

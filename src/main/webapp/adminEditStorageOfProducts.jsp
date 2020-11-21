@@ -14,26 +14,31 @@
 <%@page import="classes.StorageOfProducts" %>
 <table border="1" width="100%" cellpadding="5">
     <tr>
+        <th width="25%">ID товара</th>
         <th width="25%">Название</th>
         <th width="25%">Описание</th>
         <th width="5%">Цена</th>
+        <th width="5%">Количество</th>
         <th width="20%">Редактировать</th>
     </tr>
     <%
         for (int i = 0; i < StorageOfProducts.returnStorage().size(); i++) {
     %>
     <tr>
+        <td><%= StorageOfProducts.returnStorage().get(i).getId()%>
+        </td>
         <td><%= StorageOfProducts.returnStorage().get(i).getName()%>
         </td>
         <td><%= StorageOfProducts.returnStorage().get(i).getDescription()%>
         </td>
         <td><%= StorageOfProducts.returnStorage().get(i).getPrice()%>
         </td>
+        <td><%= StorageOfProducts.returnStorage().get(i).getCount()%>
+        </td>
         <td>
             <form action='/admin' method='POST'>
-                <input name="count"/>
                 <input type="hidden" name="operation" value="modifyProduct">
-                <input type="hidden" name="idProduct" value="<%=StorageOfProducts.returnStorage().get(i).getId() %>"/>
+                <input type="hidden" name="idProductToModify" value="<%=StorageOfProducts.returnStorage().get(i).getId() %>"/>
                 <input type='submit' value='Редактировать'/>
             </form>
         </td>
@@ -42,7 +47,7 @@
         }
     %>
 </table>
-<p><a href="/basket">В корзину</a></p>
+<p><a href="/admin">Назад</a></p>
 <p><a href="/mainPage.jsp">На главную страницу</a></p>
 </body>
 </html>

@@ -14,7 +14,8 @@
 <%@ page import="classes.StorageOfProducts" %>
 <%@ page import="classes.Product" %>
 <% Product product = StorageOfProducts.getProductInStorage((Product) session.getAttribute("productToModify")); %>
-
+<%String message = (String) session.getAttribute("message");%>
+<p align="center"><%= message%>
 <form action="/admin" method="post">
     ID товара: <input type="text" name="id" value=<%= product.getId() %>>
     <br/>
