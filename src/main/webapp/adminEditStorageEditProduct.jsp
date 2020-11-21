@@ -22,7 +22,7 @@
     <br/>
     Описание: <input type="text" name="description" value=<%= product.getDescription() %>>
     <br/>
-    Цена: <input type="text" name="price" value=<%= product.getPrice() %>>
+    Цена: <input type="text" name="price" value=<%= String.format("%.2f",product.getPrice()) %>>
     <br/>
     Количество: <input type="text" name="count" value=<%= product.getCount() %>>
     <br/>

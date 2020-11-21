@@ -29,7 +29,7 @@
         </td>
         <td><%= StorageOfProducts.returnStorage().get(i).getDescription()%>
         </td>
-        <td><%= StorageOfProducts.returnStorage().get(i).getPrice()%>
+        <td><%= String.format("%.2f",StorageOfProducts.returnStorage().get(i).getPrice())%>
         </td>
         <td>
             <form action='/shop' method='POST'>

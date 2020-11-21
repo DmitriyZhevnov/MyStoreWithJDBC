@@ -34,7 +34,7 @@
         </td>
         <td><%= StorageOfProducts.returnStorage().get(i).getDescription()%>
         </td>
-        <td><%= StorageOfProducts.returnStorage().get(i).getPrice()%>
+        <td><%= String.format("%.2f",StorageOfProducts.returnStorage().get(i).getPrice())%>
         </td>
         <td><%= StorageOfProducts.returnStorage().get(i).getCount()%>
         </td>
