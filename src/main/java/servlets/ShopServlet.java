@@ -31,6 +31,8 @@ public class ShopServlet extends HttpServlet {
             if (countOfThisProductInStorage < countInRequest) {
                 req.getSession().setAttribute("shopMessage", "Приносим свои извинения. На складе осталось "
                         + countOfThisProductInStorage + " единиц. Товар не был добавлен в корзину.");
+            } else if (countInRequest < 1) {
+                throw new NumberFormatException();
             } else if (person.getBasket().getProductFromBasket(thisProductInStorage) != null) {
                 int countOfThisProductInBasket = person.getBasket().getProductFromBasket(thisProductInStorage).getCount();
                 if (countOfThisProductInStorage < countInRequest + countOfThisProductInBasket) {
