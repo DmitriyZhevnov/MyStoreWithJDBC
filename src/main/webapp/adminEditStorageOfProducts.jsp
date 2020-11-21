@@ -35,6 +35,12 @@
                 <input type="submit" value="Сортировать"/>
             </form>
         </th>
+        <th><p>Добавить новый товар</p>
+            <form action="/admin" method="post">
+                <input type="hidden" name="operation" value="sortStorage">
+                <input type="submit" value="Добавить"/>
+            </form>
+        </th>
     </tr>
 </table>
 

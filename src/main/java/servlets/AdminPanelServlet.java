@@ -70,10 +70,7 @@ public class AdminPanelServlet extends HttpServlet {
             req.getSession().setAttribute("message", productToDelete.getName() + " был удален из хранилища");
             getServletContext().getRequestDispatcher("/adminEditStorageOfProductsWithMessage.jsp").forward(req, resp);
         } else if (req.getParameter("operation").equals("addProduct")) {
-            System.out.println("зашел");
-            System.out.println(req.getParameter("idProductToAdd"));
             Product productForAdd = StorageOfProducts.getProductInStorageById(Integer.parseInt(req.getParameter("idProductToAdd")));
-            System.out.println(productForAdd);
             try {
                 if (Integer.parseInt(req.getParameter("countOfProductToAdd")) > 0) {
                     StorageOfProducts.addProduct(productForAdd, Integer.parseInt(req.getParameter("countOfProductToAdd")));
@@ -87,6 +84,10 @@ public class AdminPanelServlet extends HttpServlet {
                 req.getSession().setAttribute("message", " Введите количество корректно.");
                 getServletContext().getRequestDispatcher("/adminEditStorageOfProductsWithMessage.jsp").forward(req, resp);
             }
+        } else if (req.getParameter("operation").equals("sortStorage")) {
+            StorageOfProducts.returnStorage().sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+            req.getSession().setAttribute("message", " Хранилище отсортировано");
+            getServletContext().getRequestDispatcher("/adminEditStorageOfProductsWithMessage.jsp").forward(req, resp);
         }
     }
 }
