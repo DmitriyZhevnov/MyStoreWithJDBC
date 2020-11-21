@@ -60,7 +60,7 @@ public class AdminPanelServlet extends HttpServlet {
                 productToModify.setId(Integer.parseInt(req.getParameter("id")));
                 productToModify.setName(req.getParameter("name"));
                 productToModify.setDescription(req.getParameter("description"));
-                productToModify.setPrice( Double.parseDouble(req.getParameter("price")));
+                productToModify.setPrice(Double.parseDouble(req.getParameter("price")));
                 productToModify.setCount(Integer.parseInt(req.getParameter("count")));
                 getServletContext().getRequestDispatcher("/adminEditStorageOfProducts.jsp").forward(req, resp);
             }
@@ -69,6 +69,24 @@ public class AdminPanelServlet extends HttpServlet {
             StorageOfProducts.returnStorage().remove(productToDelete);
             req.getSession().setAttribute("message", productToDelete.getName() + " был удален из хранилища");
             getServletContext().getRequestDispatcher("/adminEditStorageOfProductsWithMessage.jsp").forward(req, resp);
+        } else if (req.getParameter("operation").equals("addProduct")) {
+            System.out.println("зашел");
+            System.out.println(req.getParameter("idProductToAdd"));
+            Product productForAdd = StorageOfProducts.getProductInStorageById(Integer.parseInt(req.getParameter("idProductToAdd")));
+            System.out.println(productForAdd);
+            try {
+                if (Integer.parseInt(req.getParameter("countOfProductToAdd")) > 0) {
+                    StorageOfProducts.addProduct(productForAdd, Integer.parseInt(req.getParameter("countOfProductToAdd")));
+                    req.getSession().setAttribute("message", req.getParameter("countOfProductToAdd") + " единиц(а) " + productForAdd.getName() + " добавлено на склад");
+                    getServletContext().getRequestDispatcher("/adminEditStorageOfProductsWithMessage.jsp").forward(req, resp);
+                } else {
+                    req.getSession().setAttribute("message", " Введите количество корректно.");
+                    getServletContext().getRequestDispatcher("/adminEditStorageOfProductsWithMessage.jsp").forward(req, resp);
+                }
+            } catch (NumberFormatException e) {
+                req.getSession().setAttribute("message", " Введите количество корректно.");
+                getServletContext().getRequestDispatcher("/adminEditStorageOfProductsWithMessage.jsp").forward(req, resp);
+            }
         }
     }
 }

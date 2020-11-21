@@ -11,13 +11,34 @@
     <title>Редактировать хранилище</title>
 </head>
 <body>
-<%@page import="classes.StorageOfProducts" %>
 <%String message = (String) session.getAttribute("message");%>
 <p align="center"><%= message%>
+    <%@page import="classes.StorageOfProducts" %>
+    <table border="1" align="left" cellpadding="4">
+        <tr>
+            <th><p>Добавить товары на склад</p>
+<form action="/admin" method="post">
+    <select name="idProductToAdd">
+        <% for (int t = 0; t < StorageOfProducts.returnStorage().size(); t++) { %>
+        <option value="<%= StorageOfProducts.returnStorage().get(t).getId() %>">
+            <%= StorageOfProducts.returnStorage().get(t).getId()%>
+            - <%= StorageOfProducts.returnStorage().get(t).getName()%>
+        </option>
+        <% } %>
+    </select>
+    <input type="hidden" name="operation" value="addProduct">
+    <input type="text" name="countOfProductToAdd">
+    <input type="submit" value="Добавить"/>
+</form>
+</th>
+
+</tr>
+</table>
+</br>
 <table border="1" width="100%" cellpadding="5">
     <tr>
-        <th width="25%">ID товара</th>
-        <th width="25%">Название</th>
+        <th width="5%">ID товара</th>
+        <th width="20%">Название</th>
         <th width="25%">Описание</th>
         <th width="5%">Цена</th>
         <th width="5%">Количество</th>
@@ -34,22 +55,24 @@
         </td>
         <td><%= StorageOfProducts.returnStorage().get(i).getDescription()%>
         </td>
-        <td><%= String.format("%.2f",StorageOfProducts.returnStorage().get(i).getPrice())%>
+        <td><%= String.format("%.2f", StorageOfProducts.returnStorage().get(i).getPrice())%>
         </td>
         <td><%= StorageOfProducts.returnStorage().get(i).getCount()%>
         </td>
         <td>
             <form action='/admin' method='POST'>
                 <input type="hidden" name="operation" value="modifyProduct">
-                <input type="hidden" name="idProductToModify" value="<%=StorageOfProducts.returnStorage().get(i).getId() %>"/>
+                <input type="hidden" name="idProductToModify"
+                       value="<%=StorageOfProducts.returnStorage().get(i).getId() %>"/>
                 <input type='submit' value='Редактировать'/>
             </form>
         </td>
         <td>
             <form action='/admin' method='POST'>
-                <input type="hidden" name="operation" value = "deleteProduct">
-                <input type="hidden" name="idProductForDelete" value="<%=StorageOfProducts.returnStorage().get(i).getId() %>"/>
-                <input type='submit' value='Удалить' />
+                <input type="hidden" name="operation" value="deleteProduct">
+                <input type="hidden" name="idProductForDelete"
+                       value="<%=StorageOfProducts.returnStorage().get(i).getId() %>"/>
+                <input type='submit' value='Удалить'/>
             </form>
         </td>
     </tr>
