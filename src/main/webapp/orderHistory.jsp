@@ -25,8 +25,8 @@
 <%
     for (int i = orderHistory.getOrderHistory().size() - 1; i >= 0; i--) {
 %>
-<h2 align="center">Заказ № <%= orderHistory.getOrderHistory().get(i).getNumber()%></h2>
-<table align="center" border="1" width="80%" cellpadding="5">
+<h2 align="left">Заказ № <%= orderHistory.getOrderHistory().get(i).getNumber()%></h2>
+<table align="center" border="1" width="50%" cellpadding="5">
     <tr>
         <th width="20%">Дата заказа</th>
         <th width="40%">Адрес</th>
@@ -45,9 +45,9 @@
     </tr>
 </table>
 </br>
-<table align="center" border="1" width="90%" cellpadding="5">
+<table align="center" border="1" width="70%" cellpadding="5">
     <tr>
-        <th colspan="3">Содержимое заказа</th>
+        <th colspan="4">Содержимое заказа</th>
     </tr>
     <tr>
         <th width="40%">Название</th>
