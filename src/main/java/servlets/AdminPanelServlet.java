@@ -47,10 +47,10 @@ public class AdminPanelServlet extends HttpServlet {
                 StorageOfUsers.getUserStorage().remove(StorageOfUsers.findPersonInStorageByLogin(req.getParameter("login")));
                 doGet(req, resp);
             }
-        } else if ((req.getParameter("operation")).equals("modifyProduct")) {
+        } else if (req.getParameter("operation").equals("modifyProduct")) {
             req.getSession().setAttribute("productToModify", StorageOfProducts.getProductInStorageById(Integer.parseInt(req.getParameter("idProductToModify"))));
             getServletContext().getRequestDispatcher("/adminEditStorageEditProduct.jsp").forward(req, resp);
-        } else if ((req.getParameter("operation")).equals("modifyProductWithValues")) {
+        } else if (req.getParameter("operation").equals("modifyProductWithValues")) {
             Product productToModify = StorageOfProducts.getProductInStorage((Product) req.getSession().getAttribute("productToModify"));
             if (productToModify.getId() != Integer.parseInt(req.getParameter("id")) &&
                     StorageOfProducts.returnStorage().stream().anyMatch(s -> s.getId() == Integer.parseInt(req.getParameter("id")))) {
@@ -60,7 +60,7 @@ public class AdminPanelServlet extends HttpServlet {
                 productToModify.setId(Integer.parseInt(req.getParameter("id")));
                 productToModify.setName(req.getParameter("name"));
                 productToModify.setDescription(req.getParameter("description"));
-                productToModify.setPrice(Double.parseDouble(req.getParameter("price")));
+                productToModify.setPrice( Double.parseDouble(req.getParameter("price")));
                 productToModify.setCount(Integer.parseInt(req.getParameter("count")));
                 getServletContext().getRequestDispatcher("/adminEditStorageOfProducts.jsp").forward(req, resp);
             }
