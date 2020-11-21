@@ -13,7 +13,6 @@ public class OrderHistory {
         int numberOfOrder = StorageOfOrders.getOrderStorage().size() + 1;
         order.setNumber(numberOfOrder);
         orderHistory.add(order);
-        StorageOfOrders.getOrderStorage().put(numberOfOrder, order);
     }
 
     public List<Order> getOrderHistory() {

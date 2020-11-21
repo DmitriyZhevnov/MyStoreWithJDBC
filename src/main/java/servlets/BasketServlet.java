@@ -35,7 +35,8 @@ public class BasketServlet extends HttpServlet {
                 int countInRequest = Integer.parseInt(req.getParameter("count"));
                 int countOfThisProductInStorage = StorageOfProducts.getProductInStorage(thisProductInBasket).getCount();
                 if (countInRequest == 0) {
-                    //ссылкаемся на шопССоощением. рекомендуем удалить
+                    req.getSession().setAttribute("shopMessage","Значение 0 - недопустимо. Просто удалите заказ.");
+                    getServletContext().getRequestDispatcher("/basketWithMessage.jsp").forward(req, resp);
                 } else if (countInRequest >= 1) {
                     if (countInRequest > countOfThisProductInStorage) {
                         req.getSession().setAttribute("shopMessage", "Приносим свои извинения. На складе осталось "
@@ -58,9 +59,17 @@ public class BasketServlet extends HttpServlet {
             person.getBasket().removeProductFromBasket(thisProductInBasket);
             req.getSession().setAttribute("shopMessage", thisProductInBasket.getName() + " был удален из корзины");
             getServletContext().getRequestDispatcher("/basketWithMessage.jsp").forward(req, resp);
-        } else if (req.getParameter("operationInBasket").equals("pay")) {
-            person.buyBasket();
-            getServletContext().getRequestDispatcher("/successfulOrder.jsp").forward(req, resp);
+        } else if (req.getParameter("operationInBasket").equals("makeOrder")) {
+            if (req.getParameter("address").isEmpty() || req.getParameter("phoneNumber").isEmpty()) {
+                req.getSession().setAttribute("message", "Обязательно введите Адрес и Номер телефона");
+                getServletContext().getRequestDispatcher("/makeOrderWithMessage.jsp").forward(req, resp);
+            } else {
+                person.setAddress(req.getParameter("address"));
+                person.setPhoneNumber(req.getParameter("phoneNumber"));
+                person.buyBasket();
+                getServletContext().getRequestDispatcher("/successfulOrder.jsp").forward(req, resp);
+            }
         }
     }
 }
+

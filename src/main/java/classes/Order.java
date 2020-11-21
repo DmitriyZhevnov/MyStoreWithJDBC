@@ -8,10 +8,39 @@ public class Order {
     private int number;
     private List<Product> listOfProducts = new ArrayList<>();
     private LocalDateTime dateTime;
+    private String address;
+    private String phoneNumber;
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "number=" + number +
+                ", listOfProducts=" + listOfProducts +
+                ", dateTime=" + dateTime +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
+    }
 
     public Order(List<Product> listOfProducts) {
         this.listOfProducts.addAll(listOfProducts);
         dateTime = LocalDateTime.now();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public double getTotalCostOfOrder(){

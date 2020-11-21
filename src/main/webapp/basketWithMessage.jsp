@@ -13,10 +13,10 @@
 <body>
 <%@page import="classes.Basket" %>
 <%@ page import="classes.Person" %>
-<%String message = (String) session.getAttribute("shopMessage");%>
-
 <% Person person = (Person) session.getAttribute("currentUser");
-    Basket basket = person.getBasket(); %>
+    Basket basket = person.getBasket();
+String message = (String) session.getAttribute("message");%>
+<p align="center"><%= message%>
 <p align="center"><%= message%></p>
 <table border="1" width="100%" cellpadding="5">
     <tr>
@@ -64,9 +64,9 @@
 </table>
 <h2 align="right">Итого к оплате: <%= String.format("%.2f",basket.getTotalCostOfBasket()) %></h2>
 <h2 align="right">
-    <form action='/basket' method='POST'>
+    <form action='/makeOrder.jsp'>
         <input type="hidden" name="operationInBasket" value="pay">
-        <input type='submit' value='Оплатить' />
+        <input type='submit' value='Оформить заказ' />
     </form>
 </h2>
 <p><a href="/shop">В магазин</a></p>

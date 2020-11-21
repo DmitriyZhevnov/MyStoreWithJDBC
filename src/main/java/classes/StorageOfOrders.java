@@ -9,4 +9,5 @@ public class StorageOfOrders {
     public static Map<Integer, Order> getOrderStorage() {
         return orderStorage;
     }
+
 }

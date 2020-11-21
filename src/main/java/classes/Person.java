@@ -8,6 +8,8 @@ public class Person {
     private String login;
     private String password;
     private String status;
+    private String phoneNumber;
+    private String address;
     private Basket basket;
     private OrderHistory orderHistory;
 
@@ -17,6 +19,8 @@ public class Person {
         this.login = login;
         this.password = password;
         this.status = status;
+        address = "";
+        phoneNumber = "";
         basket = new Basket();
         orderHistory = new OrderHistory();
     }
@@ -30,11 +34,31 @@ public class Person {
     }
 
     public void buyBasket() {
-        basket.buyAllThatInBasket();
+        basket.deleteFromStorageThatInTheBasket();
         orderHistory.addNewOrder(basket.getBasket());
+        orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size()-1).setAddress(address);
+        orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size()-1).setPhoneNumber(phoneNumber);
+        StorageOfOrders.getOrderStorage().put(orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size()-1)
+                .getNumber(), orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size()-1));
         basket.removeAllFromBasket();
+        System.out.println(StorageOfOrders.getOrderStorage().toString());
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public Basket getBasket() {
         return basket;

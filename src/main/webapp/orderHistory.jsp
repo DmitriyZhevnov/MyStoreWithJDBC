@@ -60,6 +60,9 @@
         <td><%= String.format("%.2f",orderHistory.getOrderHistory().get(i).getTotalCostOfOrder())%></td>
 
     </tr>
+    <%= orderHistory.getOrderHistory().get(i).getAddress()%>
+    <%= orderHistory.getOrderHistory().get(i).getPhoneNumber()%>
+
     <%}%>
 </table>
 <p><a href="/myPage">Назад</a></p>

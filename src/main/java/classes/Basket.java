@@ -53,7 +53,7 @@ public class Basket {
         }
     }
 
-    public void buyAllThatInBasket() {
+    public void deleteFromStorageThatInTheBasket() {
         for (Product product : basket) {
             Product thisProductInStorage = StorageOfProducts.getProductInStorage(product);
             int firstCountOfCountInStorage = thisProductInStorage.getCount();
