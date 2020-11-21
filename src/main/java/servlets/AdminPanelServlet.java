@@ -64,6 +64,11 @@ public class AdminPanelServlet extends HttpServlet {
                 productToModify.setCount(Integer.parseInt(req.getParameter("count")));
                 getServletContext().getRequestDispatcher("/adminEditStorageOfProducts.jsp").forward(req, resp);
             }
+        } else if (req.getParameter("operation").equals("deleteProduct")) {
+            Product productToDelete = StorageOfProducts.getProductInStorageById(Integer.parseInt(req.getParameter("idProductForDelete")));
+            StorageOfProducts.returnStorage().remove(productToDelete);
+            req.getSession().setAttribute("message", productToDelete.getName() + " был удален из хранилища");
+            getServletContext().getRequestDispatcher("/adminEditStorageOfProductsWithMessage.jsp").forward(req, resp);
         }
     }
 }

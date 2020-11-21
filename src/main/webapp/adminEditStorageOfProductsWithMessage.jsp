@@ -12,6 +12,8 @@
 </head>
 <body>
 <%@page import="classes.StorageOfProducts" %>
+<%String message = (String) session.getAttribute("message");%>
+<p align="center"><%= message%>
 <table border="1" width="100%" cellpadding="5">
     <tr>
         <th width="25%">ID товара</th>
@@ -38,7 +40,7 @@
         </td>
         <td>
             <form action='/admin' method='POST'>
-                <input type="hidden" name="operation" value = "modifyProduct">
+                <input type="hidden" name="operation" value="modifyProduct">
                 <input type="hidden" name="idProductToModify" value="<%=StorageOfProducts.returnStorage().get(i).getId() %>"/>
                 <input type='submit' value='Редактировать'/>
             </form>
