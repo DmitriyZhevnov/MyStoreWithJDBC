@@ -11,25 +11,29 @@
     <title>Редактировать продукт</title>
 </head>
 <body>
-<%@ page import="classes.StorageOfProducts" %>
-<%@ page import="classes.Product" %>
-<% Product product = StorageOfProducts.getProductInStorage((Product) session.getAttribute("productToModify")); %>
-<%String message = (String) session.getAttribute("message");%>
+<%@ page import="classes.Product, classes.StorageOfProducts, classes.StorageOfUsers, classes.Person" %>
+<% Person person = (Person) session.getAttribute("currentUser");
+    if (!person.getStatus().equals("admin") || StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null) {
+        session.setAttribute("currentUser", null);
+        application.getRequestDispatcher("/Error").forward(request, response);
+    }
+    Product product = StorageOfProducts.getProductInStorage((Product) session.getAttribute("productToModify"));
+    String message = (String) session.getAttribute("message");%>
 <p align="center"><%= message%>
-<form action="/admin" method="post">
-    ID товара: <input type="text" name="id" value=<%= product.getId() %>>
-    <br/>
-    Название: <input type="text" name="name" value=<%= product.getName() %>>
-    <br/>
-    Описание: <input type="text" name="description" value=<%= product.getDescription() %>>
-    <br/>
-    Цена: <input type="text" name="price" value=<%= String.format("%.2f",product.getPrice()) %>>
-    <br/>
-    Количество: <input type="text" name="count" value=<%= product.getCount() %>>
-    <br/>
-    <input type="hidden" name="operation" value="modifyProductWithValues">
-    <p><a href="/myPage">Назад</a>
-        <input type="submit" value="Сохранить"/> </p>
+    <form action="/admin" method="post">
+        ID товара: <input type="text" name="id" value=<%= product.getId() %>>
+        <br/>
+        Название: <input type="text" name="name" value=<%= product.getName() %>>
+        <br/>
+        Описание: <input type="text" name="description" value=<%= product.getDescription() %>>
+        <br/>
+        Цена: <input type="text" name="price" value=<%= String.format("%.2f",product.getPrice()) %>>
+        <br/>
+        Количество: <input type="text" name="count" value=<%= product.getCount() %>>
+        <br/>
+        <input type="hidden" name="operation" value="modifyProductWithValues">
+<p><a href="/myPage">Назад</a>
+    <input type="submit" value="Сохранить"/></p>
 </form>
 </body>
 </html>

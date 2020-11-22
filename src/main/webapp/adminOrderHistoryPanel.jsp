@@ -11,10 +11,14 @@
     <title>Истории заказов</title>
 </head>
 <body>
+<%@ page import="classes.StorageOfOrders, java.time.format.DateTimeFormatter, classes.StorageOfUsers, classes.Person" %>
+<% Person checkPerson = (Person) session.getAttribute("currentUser");
+    if (!checkPerson.getStatus().equals("admin") || StorageOfUsers.findPersonInStorageByLogin(checkPerson.getLogin()) == null) {
+        session.setAttribute("currentUser", null);
+        application.getRequestDispatcher("/Error").forward(request, response);
+    }
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"); %>
 <p><a href="/admin">Назад</a></p>
-<%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="classes.StorageOfOrders" %>
-<%DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"); %>
 <table border="1" align="left" cellpadding="4">
     <tr>
         <th><p>Поиск истории заказов пользователя</p>
@@ -35,8 +39,7 @@
 </table>
 <br/><br/><br/><br/>
 <h1 align="center">Все заказы</h1>
-<%    for (int i = StorageOfOrders.getOrderStorage().size() - 1; i >= 0; i--) {
-%>
+<% for (int i = StorageOfOrders.getOrderStorage().size() - 1; i >= 0; i--) { %>
 <h2 align="left">Заказ № <%= StorageOfOrders.getOrderStorage().get(i).getNumber()%>
 </h2>
 <table align="center" border="1" width="50%" cellpadding="5">

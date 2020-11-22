@@ -21,13 +21,11 @@ public class BasketServlet extends HttpServlet {
         } else {
             getServletContext().getRequestDispatcher("/basket.jsp").forward(req, resp);
         }
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Person person = (Person) req.getSession().getAttribute("currentUser");
-
         if (req.getParameter("operationInBasket").equals("modifyProduct")) {
             try {
                 Product thisProductInBasket = person.getBasket().getProductByIdFromBasket(Integer
@@ -35,7 +33,7 @@ public class BasketServlet extends HttpServlet {
                 int countInRequest = Integer.parseInt(req.getParameter("count"));
                 int countOfThisProductInStorage = StorageOfProducts.getProductInStorage(thisProductInBasket).getCount();
                 if (countInRequest == 0) {
-                    req.getSession().setAttribute("shopMessage","Значение 0 - недопустимо. Просто удалите заказ.");
+                    req.getSession().setAttribute("shopMessage", "Значение 0 - недопустимо. Просто удалите заказ.");
                     getServletContext().getRequestDispatcher("/basketWithMessage.jsp").forward(req, resp);
                 } else if (countInRequest >= 1) {
                     if (countInRequest > countOfThisProductInStorage) {

@@ -1,7 +1,5 @@
 package classes;
 
-import java.time.LocalDateTime;
-
 public class Person {
     private String name;
     private int age;
@@ -29,17 +27,13 @@ public class Person {
         return orderHistory;
     }
 
-    public void setOrderHistory(OrderHistory orderHistory) {
-        this.orderHistory = orderHistory;
-    }
-
     public void buyBasket() {
         basket.deleteFromStorageThatInTheBasket();
         orderHistory.addNewOrder(basket.getBasket());
-        orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size()-1).setAddress(address);
-        orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size()-1).setPhoneNumber(phoneNumber);
-        orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size()-1).setLogin(getLogin());
-        StorageOfOrders.getOrderStorage().add(orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size()-1));
+        orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).setAddress(address);
+        orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).setPhoneNumber(phoneNumber);
+        orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).setLogin(getLogin());
+        StorageOfOrders.getOrderStorage().add(orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1));
         basket.removeAllFromBasket();
         System.out.println(StorageOfOrders.getOrderStorage().toString());
     }

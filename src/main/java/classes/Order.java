@@ -12,17 +12,6 @@ public class Order {
     private String phoneNumber;
     private String login;
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "number=" + number +
-                ", listOfProducts=" + listOfProducts +
-                ", dateTime=" + dateTime +
-                ", address='" + address + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
-    }
-
     public Order(List<Product> listOfProducts) {
         this.listOfProducts.addAll(listOfProducts);
         dateTime = LocalDateTime.now();
@@ -52,9 +41,9 @@ public class Order {
         this.phoneNumber = phoneNumber;
     }
 
-    public double getTotalCostOfOrder(){
+    public double getTotalCostOfOrder() {
         double totalCost = 0;
-        for (int i = 0; i < listOfProducts.size(); i++){
+        for (int i = 0; i < listOfProducts.size(); i++) {
             totalCost += getListOfProducts().get(i).getPrice() * getListOfProducts().get(i).getCount();
         }
         return totalCost;
@@ -71,13 +60,6 @@ public class Order {
     public List<Product> getListOfProducts() {
         return listOfProducts;
     }
-    public String printListOfProducts(){
-        StringBuilder listForReturn = new StringBuilder("");
-        for (Product product : listOfProducts){
-            listForReturn.append("Название: " + product.getName() + ". Количество: " + product.getCount() + "\n");
-        }
-        return listForReturn.toString();
-    }
 
     public void setListOfProducts(List<Product> listOfProducts) {
         this.listOfProducts = listOfProducts;
@@ -86,9 +68,4 @@ public class Order {
     public LocalDateTime getDateTime() {
         return dateTime;
     }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
 }

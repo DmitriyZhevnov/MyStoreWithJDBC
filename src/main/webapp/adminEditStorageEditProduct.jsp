@@ -11,9 +11,13 @@
     <title>Редактировать продукт</title>
 </head>
 <body>
-<%@ page import="classes.StorageOfProducts" %>
-<%@ page import="classes.Product" %>
-<% Product product = StorageOfProducts.getProductInStorage((Product) session.getAttribute("productToModify")); %>
+<%@ page import="classes.Product, classes.StorageOfProducts, classes.Person, classes.StorageOfUsers" %>
+<% Person person = (Person) session.getAttribute("currentUser");
+    if (!person.getStatus().equals("admin") || StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null) {
+        session.setAttribute("currentUser", null);
+        application.getRequestDispatcher("/Error").forward(request, response);
+    }
+    Product product = StorageOfProducts.getProductInStorage((Product) session.getAttribute("productToModify")); %>
 
 <form action="/admin" method="post">
     ID товара: <input type="text" name="id" value=<%= product.getId() %>>
@@ -28,7 +32,7 @@
     <br/>
     <input type="hidden" name="operation" value="modifyProductWithValues">
     <p><a href="/myPage">Назад</a>
-        <input type="submit" value="Сохранить"/> </p>
+        <input type="submit" value="Сохранить"/></p>
 </form>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<%@ page import="classes.OrderHistory" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Жевновы
   Date: 20.11.2020
@@ -11,21 +11,21 @@
     <title>История заказов</title>
 </head>
 <body>
-<p><a href="/myPage">Назад</a></p>
-<%@page import="classes.OrderHistory" %>
-<%@ page import="classes.Person" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="classes.Person, classes.StorageOfUsers, classes.OrderHistory, java.time.format.DateTimeFormatter" %>
 <% Person person = (Person) session.getAttribute("currentUser");
-    OrderHistory orderHistory = person.getOrderHistory();
+    if (StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null) {
+        session.setAttribute("currentUser", null);
+        application.getRequestDispatcher("/Error").forward(request, response);
+    }%>
+<p><a href="/myPage">Назад</a></p>
+<% OrderHistory orderHistory = person.getOrderHistory();
     if (orderHistory.getOrderHistory().size() == 0) {
         request.getServletContext().getRequestDispatcher("/orderHistoryEmpty.jsp").forward(request, response);
     }
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");%>
-
-<%
-    for (int i = orderHistory.getOrderHistory().size() - 1; i >= 0; i--) {
-%>
-<h2 align="left">Заказ № <%= orderHistory.getOrderHistory().get(i).getNumber()%></h2>
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    for (int i = orderHistory.getOrderHistory().size() - 1; i >= 0; i--) { %>
+<h2 align="left">Заказ № <%= orderHistory.getOrderHistory().get(i).getNumber()%>
+</h2>
 <table align="center" border="1" width="50%" cellpadding="5">
     <tr>
         <th width="20%">Дата заказа</th>
@@ -71,7 +71,7 @@
     <%}%>
 </table>
 </br>
-    <%}%>
+<%}%>
 <p><a href="/myPage">Назад</a></p>
 </body>
 </html>

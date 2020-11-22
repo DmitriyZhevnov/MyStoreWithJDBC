@@ -11,6 +11,12 @@
     <title>Моя корзина</title>
 </head>
 <body>
+<%@ page import="classes.Person, classes.StorageOfUsers" %>
+<% Person person = (Person) session.getAttribute("currentUser");
+    if (StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null) {
+        session.setAttribute("currentUser", null);
+        application.getRequestDispatcher("/Error").forward(request, response);
+    }%>
 <h1 align="center"> Ваша корзина пустая</h1>
 <h2 align="center"> Пора бы сделать новый заказ</h2>
 <p><a href="/shop">В магазин</a></p>

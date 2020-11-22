@@ -11,6 +11,12 @@
     <title>Добавить новый товар</title>
 </head>
 <body>
+<%@ page import="classes.StorageOfUsers, classes.Person" %>
+<% Person person = (Person) session.getAttribute("currentUser");
+    if (!person.getStatus().equals("admin") || StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null) {
+        session.setAttribute("currentUser", null);
+        application.getRequestDispatcher("/Error").forward(request, response);
+    } %>
 <form action="/admin" method="post">
     ID товара: <input type="text" name="id" %>
     <br/>
@@ -22,7 +28,7 @@
     <br/>
     <input type="hidden" name="operation" value="addNewProduct">
     <p><a href="/adminEditStorageOfProducts.jsp">Назад</a>
-        <input type="submit" value="Добавить"/> </p>
+        <input type="submit" value="Добавить"/></p>
 </form>
 </body>
 </html>

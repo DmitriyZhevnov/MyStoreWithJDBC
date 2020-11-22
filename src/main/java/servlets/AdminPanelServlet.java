@@ -1,7 +1,6 @@
 package servlets;
 
 import classes.*;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 @WebServlet("/admin")
@@ -117,7 +115,6 @@ public class AdminPanelServlet extends HttpServlet {
             }
         } else if (req.getParameter("operation").equals("findOrderByNumber")) {
             try {
-                System.out.println((req.getParameter("orderNumber")));
                 int numberToFind = Integer.parseInt(req.getParameter("orderNumber"));
                 if (StorageOfOrders.getOrderStorage().stream().anyMatch(s -> s.getNumber() == numberToFind)) {
                     req.getSession().setAttribute("orderToShow", StorageOfOrders.getOrderStorage().stream().filter(s -> s.getNumber() == numberToFind).collect(Collectors.toList()).get(0));
@@ -129,9 +126,7 @@ public class AdminPanelServlet extends HttpServlet {
             } catch (NumberFormatException e) {
                 req.getSession().setAttribute("message", "Введите номер заказа корректно");
                 getServletContext().getRequestDispatcher("/adminOrderHistoryPanelWithMessage.jsp").forward(req, resp);
-
             }
-
         }
     }
 }

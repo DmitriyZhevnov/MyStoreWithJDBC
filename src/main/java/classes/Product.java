@@ -61,9 +61,9 @@ public class Product {
         this.count = count;
     }
 
-    @Override
-    public String toString() {
-        return (name +  " " + count);
-    }
+//    @Override
+//    public String toString() {
+//        return (name + " " + count);
+//    }
 }
 

@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/shop")
@@ -22,8 +21,8 @@ public class ShopServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Person person = (Person) req.getSession().getAttribute("currentUser");
         try {
+            Person person = (Person) req.getSession().getAttribute("currentUser");
             Product thisProductInStorage = StorageOfProducts.getProductInStorageById(Integer
                     .parseInt(req.getParameter("idProduct")));
             int countOfThisProductInStorage = thisProductInStorage.getCount();

@@ -12,34 +12,38 @@
 </head>
 <body>
 <p><a href="/admin">Назад</a></p>
-<%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="classes.StorageOfOrders" %>
-<%DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"); %>
-<%String message = (String) session.getAttribute("message");%>
+<%@ page import="classes.StorageOfOrders, java.time.format.DateTimeFormatter, classes.StorageOfUsers, classes.Person" %>
+<% Person checkPerson = (Person) session.getAttribute("currentUser");
+    if (!checkPerson.getStatus().equals("admin") || StorageOfUsers.findPersonInStorageByLogin(checkPerson.getLogin()) == null) {
+        session.setAttribute("currentUser", null);
+        application.getRequestDispatcher("/Error").forward(request, response);
+    }
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    String message = (String) session.getAttribute("message");%>
 <p align="center"><%= message%>
-<table border="1" align="left" cellpadding="4">
-    <tr>
-        <th><p>Поиск истории заказов пользователя</p>
-            <form action="/admin" method="post">
-                Логин: <input type="text" name="login">
-                <input type="hidden" name="operation" value="findOrderHistoryByLogin">
-                <input type="submit" value="Поиск"/>
-            </form>
-        </th>
-        <th><p>Поиск заказа по номеру</p>
-            <form action="/admin" method="post">
-                Номер заказа: <input type="text" name="orderNumber">
-                <input type="hidden" name="operation" value="findOrderByNumber">
-                <input type="submit" value="Поиск"/>
-            </form>
-        </th>
-    </tr>
+    <table border="1" align="left" cellpadding="4">
+        <tr>
+            <th>
+<p>Поиск истории заказов пользователя</p>
+<form action="/admin" method="post">
+    Логин: <input type="text" name="login">
+    <input type="hidden" name="operation" value="findOrderHistoryByLogin">
+    <input type="submit" value="Поиск"/>
+</form>
+</th>
+<th><p>Поиск заказа по номеру</p>
+    <form action="/admin" method="post">
+        Номер заказа: <input type="text" name="orderNumber">
+        <input type="hidden" name="operation" value="findOrderByNumber">
+        <input type="submit" value="Поиск"/>
+    </form>
+</th>
+</tr>
 </table>
 <br/><br/><br/><br/>
 <h1 align="center">Все заказы</h1>
-<%    for (int i = StorageOfOrders.getOrderStorage().size() - 1; i >= 0; i--) {
-%>
-<h2 align="left">Заказ № <%= StorageOfOrders.getOrderStorage().get(i).getNumber()%>
+<% for (int i = StorageOfOrders.getOrderStorage().size() - 1; i >= 0; i--) { %>
+<h2 align="left">Заказ № <%= StorageOfOrders.getOrderStorage().get(i).getNumber() %>
 </h2>
 <table align="center" border="1" width="50%" cellpadding="5">
     <tr>
@@ -74,9 +78,7 @@
         <th width="10%">Цена</th>
     </tr>
     <tr>
-        <%
-            for (int j = 0; j < StorageOfOrders.getOrderStorage().get(i).getListOfProducts().size(); j++) {
-        %>
+        <% for (int j = 0; j < StorageOfOrders.getOrderStorage().get(i).getListOfProducts().size(); j++) { %>
         <td><%= StorageOfOrders.getOrderStorage().get(i).getListOfProducts().get(j).getName()%>
         </td>
         <td><%= StorageOfOrders.getOrderStorage().get(i).getListOfProducts().get(j).getDescription()%>

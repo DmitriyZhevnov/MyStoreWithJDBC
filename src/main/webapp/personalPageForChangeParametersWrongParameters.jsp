@@ -11,15 +11,15 @@
     <title>Изменить данные</title>
 </head>
 <body>
-<%@ page import="classes.Person" %>
-<%@ page import="classes.StorageOfUsers" %>
-<% Person person = (Person) session.getAttribute("currentUser"); %>
-<% if(StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null){
-    session.setAttribute("currentUser", null);
-    application.getRequestDispatcher("/Error").forward(request,response);
-}%>
-<%String error = (String) session.getAttribute("messageError");%>
-<p style="color:#bf3b3b"><%= error%></p>
+<%@ page import="classes.Person, classes.StorageOfUsers" %>
+<% Person person = (Person) session.getAttribute("currentUser");
+    if (StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null) {
+        session.setAttribute("currentUser", null);
+        application.getRequestDispatcher("/Error").forward(request, response);
+    }
+    String error = (String) session.getAttribute("messageError");%>
+<p style="color:#bf3b3b"><%= error%>
+</p>
 <form action="/myPage" method="post">
     Имя: <input type="text" name="name" value=<%= person.getName() %>>
     <br/>
@@ -29,7 +29,7 @@
     <br/>
     Пароль: <input type="text" name="password"/>
     <p><a href="/myPage">Назад</a>
-    <input type="submit" value="Сохранить"/></p>
+        <input type="submit" value="Сохранить"/></p>
 </form>
 <p style="color:#bf3b3b">Примечание: Пустое окно пароля оставит его прежним.</p>
 </body>

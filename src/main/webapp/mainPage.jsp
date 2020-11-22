@@ -11,24 +11,23 @@
     <title>Главная страница</title>
 </head>
 <body>
-
-<%@ page import="classes.Person" %>
-<%@ page import="classes.StorageOfUsers" %>
-<% Person person = (Person) session.getAttribute("currentUser"); %>
-<% if(StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null){
-    session.setAttribute("currentUser", null);
-    application.getRequestDispatcher("/Error").forward(request,response);
-}%>
-<p> Привет, <%= person.getName() %> </p>
+<%@ page import="classes.Person, classes.StorageOfUsers" %>
+<% Person person = (Person) session.getAttribute("currentUser");
+    if (StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null) {
+        session.setAttribute("currentUser", null);
+        application.getRequestDispatcher("/Error").forward(request, response);
+    }%>
+<p> Привет, <%= person.getName() %>
+</p>
 <div><h2 align="center">Main page</h2></div>
 <div align="left">
-<form>
-    <br/>
-    <p><a href="/myPage">Мой аккаунт</a></p>
-    <p><a href="/shop">Магазин</a></p>
-    <p><a href="/basket">Моя корзина</a></p>
-    <p><a href="/login">Выйти из учётной записи</a></p>
-</form>
+    <form>
+        <br/>
+        <p><a href="/myPage">Мой аккаунт</a></p>
+        <p><a href="/shop">Магазин</a></p>
+        <p><a href="/basket">Моя корзина</a></p>
+        <p><a href="/login">Выйти из учётной записи</a></p>
+    </form>
 </div>
 </body>
 </html>

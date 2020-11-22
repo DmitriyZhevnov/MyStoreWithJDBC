@@ -13,7 +13,8 @@
 <body>
 <form action="/registration" method="POST">
     <%String error = (String) session.getAttribute("messageError");%>
-    <p style="color:#bf3b3b"><%= error%></p>
+    <p style="color:#bf3b3b"><%= error%>
+    </p>
     Имя: <input type="text" name="name">
     <br/>
     Возраст: <input type="text" name="age"/>

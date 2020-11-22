@@ -1,4 +1,4 @@
-<%@ page import="classes.OrderHistory" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Жевновы
   Date: 20.11.2020
@@ -12,21 +12,29 @@
 </head>
 <body>
 <p><a href="/adminOrderHistoryPanel.jsp">Назад</a></p>
-<%@page import="classes.OrderHistory" %>
-<%@ page import="classes.Person" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
-<% Person person = (Person) session.getAttribute("personForFindOrderHistory");
+<%@ page
+        import="java.time.format.DateTimeFormatter, classes.Person, classes.OrderHistory, classes.StorageOfUsers, classes.Person" %>
+<% Person checkPerson = (Person) session.getAttribute("currentUser");
+    if (!checkPerson.getStatus().equals("admin") || StorageOfUsers.findPersonInStorageByLogin(checkPerson.getLogin()) == null) {
+        session.setAttribute("currentUser", null);
+        application.getRequestDispatcher("/Error").forward(request, response);
+    }
+    Person person = (Person) session.getAttribute("personForFindOrderHistory");
     OrderHistory orderHistory = person.getOrderHistory();%>
-<h1 align="center">Заказы пользователя <%= person.getLogin()%></h1>
-<% if (orderHistory.getOrderHistory().size() == 0) {
+<h1 align="center">Заказы пользователя <%= person.getLogin()%>
+</h1>
+<%
+    if (orderHistory.getOrderHistory().size() == 0) {
         request.getServletContext().getRequestDispatcher("/orderHistoryEmpty.jsp").forward(request, response);
     }
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");%>
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+%>
 
 <%
     for (int i = orderHistory.getOrderHistory().size() - 1; i >= 0; i--) {
 %>
-<h2 align="left">Заказ № <%= orderHistory.getOrderHistory().get(i).getNumber()%></h2>
+<h2 align="left">Заказ № <%= orderHistory.getOrderHistory().get(i).getNumber()%>
+</h2>
 <table align="center" border="1" width="50%" cellpadding="5">
     <tr>
         <th width="20%">Дата заказа</th>
@@ -72,7 +80,7 @@
     <%}%>
 </table>
 </br>
-    <%}%>
+<%}%>
 <p><a href="/adminOrderHistoryPanel.jsp">Назад</a></p>
 </body>
 </html>

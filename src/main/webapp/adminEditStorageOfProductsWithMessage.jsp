@@ -1,4 +1,4 @@
-<%@ page import="classes.StorageOfProducts" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Жевновы
   Date: 19.11.2020
@@ -11,10 +11,15 @@
     <title>Редактировать хранилище</title>
 </head>
 <body>
-<%String message = (String) session.getAttribute("message");%>
+<%@ page import="classes.StorageOfProducts, classes.StorageOfUsers, classes.Person" %>
+<% Person person = (Person) session.getAttribute("currentUser");
+    if (!person.getStatus().equals("admin") || StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null) {
+        session.setAttribute("currentUser", null);
+        application.getRequestDispatcher("/Error").forward(request, response);
+    }
+    String message = (String) session.getAttribute("message");%>
 <p align="center"><%= message%>
 </p>
-<%@page import="classes.StorageOfProducts" %>
 <table border="1" align="left" cellpadding="4">
     <tr>
         <th>

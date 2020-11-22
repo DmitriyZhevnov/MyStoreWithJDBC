@@ -11,16 +11,18 @@
     <title>Оформление заказа</title>
 </head>
 <body>
-<%@page import="classes.OrderHistory" %>
-<%@ page import="classes.Person" %>
+<%@ page import="classes.Person, classes.StorageOfUsers" %>
 <% Person person = (Person) session.getAttribute("currentUser");
-%>
-<%= person.getName()%>, для оформления заказа на сумму <%= String.format("%.2f",person.getBasket().getTotalCostOfBasket())%> укажите свои
+    if (StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null) {
+        session.setAttribute("currentUser", null);
+        application.getRequestDispatcher("/Error").forward(request, response);
+    }%>
+<%= person.getName()%>, для оформления заказа на
+сумму <%= String.format("%.2f", person.getBasket().getTotalCostOfBasket())%> укажите свои
 данные:
 </br>
 </br>
 <form action="/basket" method="post">
-
     Адрес: <input type="text" name="address" value=<%= person.getAddress() %>>
     <br/>
     Телефон: <input type="text" name="phoneNumber" value=<%= person.getPhoneNumber() %>>
@@ -29,8 +31,6 @@
     <br><input type="submit" value="Оформить"/> </br></br>
     <a href="/basket">Назад к корзине</a> </br></br>
     <a href="/shop">Вернуться в магазин</a>
-
 </form>
-
 </body>
 </html>

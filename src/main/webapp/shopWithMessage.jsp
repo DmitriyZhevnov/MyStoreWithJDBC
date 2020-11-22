@@ -1,4 +1,4 @@
-<%@ page import="classes.StorageOfProducts" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Жевновы
   Date: 19.11.2020
@@ -12,9 +12,13 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 </head>
 <body>
-<%@page import="classes.StorageOfProducts" %>
-<%@ page import="classes.Product" %>
-<%String message = (String) session.getAttribute("shopMessage");%>
+<%@ page import="classes.StorageOfProducts, classes.Person, classes.StorageOfUsers" %>
+<% Person person = (Person) session.getAttribute("currentUser");
+    if (StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null) {
+        session.setAttribute("currentUser", null);
+        application.getRequestDispatcher("/Error").forward(request, response);
+    }
+    String message = (String) session.getAttribute("shopMessage");%>
 <p align="center"><%= message%>
 </p>
 <table border="1" width="100%" cellpadding="5">
@@ -33,7 +37,7 @@
         </td>
         <td><%= StorageOfProducts.returnStorage().get(i).getDescription()%>
         </td>
-        <td><%= String.format("%.2f",StorageOfProducts.returnStorage().get(i).getPrice())%>
+        <td><%= String.format("%.2f", StorageOfProducts.returnStorage().get(i).getPrice())%>
         </td>
         <td>
             <form action='/shop' method='POST'>

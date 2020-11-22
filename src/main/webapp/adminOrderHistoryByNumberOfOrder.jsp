@@ -1,4 +1,4 @@
-<%@ page import="classes.OrderHistory" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Жевновы
   Date: 20.11.2020
@@ -11,16 +11,16 @@
     <title>История заказов</title>
 </head>
 <body>
+<%@ page import="classes.Order, java.time.format.DateTimeFormatter, classes.StorageOfUsers, classes.Person" %>
+<% Person checkPerson = (Person) session.getAttribute("currentUser");
+    if (!checkPerson.getStatus().equals("admin") || StorageOfUsers.findPersonInStorageByLogin(checkPerson.getLogin()) == null) {
+        session.setAttribute("currentUser", null);
+        application.getRequestDispatcher("/Error").forward(request, response);
+    }
+    Order order = (Order) session.getAttribute("orderToShow");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+%>
 <p><a href="/adminOrderHistoryPanel.jsp">Назад</a></p>
-<%@page import="classes.OrderHistory" %>
-<%@ page import="classes.Person" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="com.sun.org.apache.xpath.internal.operations.Or" %>
-<%@ page import="classes.Order" %>
-
-<% Order order = (Order) session.getAttribute("orderToShow");%>
-<% DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");%>
-
 <h2 align="left">Заказ № <%= order.getNumber()%>
 </h2>
 <table align="center" border="1" width="50%" cellpadding="5">

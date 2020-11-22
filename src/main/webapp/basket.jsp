@@ -11,10 +11,12 @@
     <title>Моя корзина</title>
 </head>
 <body>
-<%@page import="classes.Basket" %>
-<%@ page import="classes.Person" %>
-
+<%@page import="classes.Basket, classes.Person, classes.StorageOfUsers" %>
 <% Person person = (Person) session.getAttribute("currentUser");
+    if (StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null) {
+        session.setAttribute("currentUser", null);
+        application.getRequestDispatcher("/Error").forward(request, response);
+    }
     Basket basket = person.getBasket(); %>
 <table border="1" width="100%" cellpadding="5">
     <tr>
@@ -38,21 +40,21 @@
         </td>
         <td><%= basket.getBasket().get(i).getCount()%>
         </td>
-        <td><%= String.format("%.2f",basket.getTotalCostOfProduct(basket.getBasket().get(i)))%>
+        <td><%= String.format("%.2f", basket.getTotalCostOfProduct(basket.getBasket().get(i)))%>
         </td>
         <td>
             <form action='/basket' method='POST'>
                 <input type="hidden" name="operationInBasket" value="modifyProduct">
-                <input name="count" value="<%= basket.getBasket().get(i).getCount()%>" />
-                <input type="hidden" name="idProduct" value="<%=basket.getBasket().get(i).getId() %>" />
-                <input type='submit' value='Изменить' />
+                <input name="count" value="<%= basket.getBasket().get(i).getCount()%>"/>
+                <input type="hidden" name="idProduct" value="<%=basket.getBasket().get(i).getId() %>"/>
+                <input type='submit' value='Изменить'/>
             </form>
         </td>
         <td>
             <form action='/basket' method='POST'>
                 <input type="hidden" name="operationInBasket" value="deleteProduct">
-                <input type="hidden" name="idProduct" value="<%=basket.getBasket().get(i).getId() %>" />
-                <input type='submit' value='Удалить' />
+                <input type="hidden" name="idProduct" value="<%=basket.getBasket().get(i).getId() %>"/>
+                <input type='submit' value='Удалить'/>
             </form>
         </td>
     </tr>
@@ -60,21 +62,14 @@
         }
     %>
 </table>
-<h2 align="right">Итого к оплате: <%= String.format("%.2f",basket.getTotalCostOfBasket()) %></h2>
-<h2 align="right">
-<form action='/makeOrder.jsp'>
-    <input type="hidden" name="operationInBasket" value="pay">
-    <input type='submit' value='Оформить заказ' />
-</form>
+<h2 align="right">Итого к оплате: <%= String.format("%.2f", basket.getTotalCostOfBasket()) %>
 </h2>
-
-<%--<h2 align="right">--%>
-<%--    <form action='/basket' method='POST'>--%>
-<%--        <input type="hidden" name="operationInBasket" value="pay">--%>
-<%--        <input type='submit' value='Оплатить' />--%>
-<%--    </form>--%>
-<%--</h2>--%>
-
+<h2 align="right">
+    <form action='/makeOrder.jsp'>
+        <input type="hidden" name="operationInBasket" value="pay">
+        <input type='submit' value='Оформить заказ'/>
+    </form>
+</h2>
 <p><a href="/shop">В магазин</a></p>
 <p><a href="/mainPage.jsp">На главную страницу</a></p>
 </body>

@@ -18,12 +18,13 @@ public class Basket {
         }
     }
 
-    public double getTotalCostOfProduct(Product product){
-        return  getProductFromBasket(product).getCount() * getProductFromBasket(product).getPrice();
+    public double getTotalCostOfProduct(Product product) {
+        return getProductFromBasket(product).getCount() * getProductFromBasket(product).getPrice();
     }
-    public double getTotalCostOfBasket(){
+
+    public double getTotalCostOfBasket() {
         double totalCost = 0;
-        for (int i = 0; i < basket.size(); i++){
+        for (int i = 0; i < basket.size(); i++) {
             totalCost += getTotalCostOfProduct(basket.get(i));
         }
         return totalCost;
@@ -33,9 +34,10 @@ public class Basket {
         basket.clear();
     }
 
-    public void removeProductFromBasket(Product product){
+    public void removeProductFromBasket(Product product) {
         basket.remove(product);
     }
+
     public Product getProductByIdFromBasket(int id) {
         if (basket.stream().anyMatch(s -> s.getId() == id)) {
             return basket.stream().filter(s -> s.getId() == id).collect(Collectors.toList()).get(0);
@@ -47,7 +49,6 @@ public class Basket {
     public Product getProductFromBasket(Product product) {
         if (basket.stream().anyMatch(s -> s.getId() == product.getId())) {
             return basket.stream().filter(s -> s.getId() == product.getId()).collect(Collectors.toList()).get(0);
-
         } else {
             return null;
         }
