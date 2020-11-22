@@ -107,6 +107,15 @@ public class AdminPanelServlet extends HttpServlet {
                     getServletContext().getRequestDispatcher("/adminAddProductWithMessage.jsp").forward(req, resp);
                 }
             }
+        } else if (req.getParameter("operation").equals("findOrderHistoryByLogin")) {
+            Person person = StorageOfUsers.findPersonInStorageByLogin(req.getParameter("login"));
+            if (person != null){
+                req.getSession().setAttribute("personForFindOrderHistory", person);
+                getServletContext().getRequestDispatcher("/adminOrderHistoryByLogin.jsp").forward(req, resp);
+            } else {
+                req.getSession().setAttribute("message", "Пользователя с таким логином нет.");
+                getServletContext().getRequestDispatcher("/adminOrderHistoryPanelWithMessage.jsp").forward(req, resp);
+            }
 
 
         }

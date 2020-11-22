@@ -15,6 +15,8 @@
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="classes.StorageOfOrders" %>
 <%DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"); %>
+<%String message = (String) session.getAttribute("message");%>
+<p align="center"><%= message%>
 <table border="1" align="left" cellpadding="4">
     <tr>
         <th><p>Поиск истории заказов пользователя</p>
