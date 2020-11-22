@@ -11,7 +11,7 @@
     <title>Истории заказов</title>
 </head>
 <body>
-<p><a href="/myPage">Назад</a></p>
+<p><a href="/admin">Назад</a></p>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="classes.StorageOfOrders" %>
 <%DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"); %>
@@ -28,7 +28,7 @@
         </th>
         <th><p>Поиск заказа по номеру</p>
             <form action="/admin" method="post">
-                Номер заказа: <input type="text" name="OrderNumber">
+                Номер заказа: <input type="text" name="orderNumber">
                 <input type="hidden" name="operation" value="findOrderByNumber">
                 <input type="submit" value="Поиск"/>
             </form>
@@ -90,6 +90,6 @@
 </table>
 </br>
 <%}%>
-<p><a href="/myPage">Назад</a></p>
+<p><a href="/admin">Назад</a></p>
 </body>
 </html>
