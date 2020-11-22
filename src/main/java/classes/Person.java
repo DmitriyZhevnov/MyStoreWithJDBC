@@ -38,8 +38,8 @@ public class Person {
         orderHistory.addNewOrder(basket.getBasket());
         orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size()-1).setAddress(address);
         orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size()-1).setPhoneNumber(phoneNumber);
-        StorageOfOrders.getOrderStorage().put(orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size()-1)
-                .getNumber(), orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size()-1));
+        orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size()-1).setLogin(getLogin());
+        StorageOfOrders.getOrderStorage().add(orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size()-1));
         basket.removeAllFromBasket();
         System.out.println(StorageOfOrders.getOrderStorage().toString());
     }

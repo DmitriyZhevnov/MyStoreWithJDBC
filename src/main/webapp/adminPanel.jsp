@@ -23,6 +23,8 @@
 <a href="/adminPanelDeleteUser.jsp">Удалить пользователя</a>
 <br/> <br/>
 <a href="/adminEditStorageOfProducts.jsp">Редактировать хранилище</a>
+<br/>
+<a href="/adminOrderHistoryPanel.jsp">Операции с Историей заказов</a>
 <p><a href="personalPageForAdmin.jsp">Назад</a></p>
 </body>
 </html>

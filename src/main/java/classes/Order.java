@@ -10,6 +10,7 @@ public class Order {
     private LocalDateTime dateTime;
     private String address;
     private String phoneNumber;
+    private String login;
 
     @Override
     public String toString() {
@@ -25,6 +26,14 @@ public class Order {
     public Order(List<Product> listOfProducts) {
         this.listOfProducts.addAll(listOfProducts);
         dateTime = LocalDateTime.now();
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getAddress() {

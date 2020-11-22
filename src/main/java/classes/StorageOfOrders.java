@@ -1,12 +1,14 @@
 package classes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StorageOfOrders {
-    private static Map<Integer, Order> orderStorage = new HashMap<>();
+    private static List<Order> orderStorage = new ArrayList<>();
 
-    public static Map<Integer, Order> getOrderStorage() {
+    public static List<Order> getOrderStorage() {
         return orderStorage;
     }
 
