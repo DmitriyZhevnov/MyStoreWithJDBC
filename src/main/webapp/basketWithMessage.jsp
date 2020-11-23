@@ -18,8 +18,7 @@
         application.getRequestDispatcher("/Error").forward(request, response);
     }
     Basket basket = person.getBasket();
-    String message = (String) session.getAttribute("message");%>
-<p align="center"><%= message%>
+    String message = (String) session.getAttribute("shopMessage");%>
 <p align="center"><%= message%>
 </p>
 <table border="1" width="100%" cellpadding="5">

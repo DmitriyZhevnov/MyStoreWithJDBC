@@ -29,8 +29,6 @@
     <br/>
     Цена: <input type="text" name="price" %>
     <br/>
-    Количество: <input type="text" name="count">
-    <br/>
     <input type="hidden" name="operation" value="addNewProduct">
     <p><a href="/adminEditStorageOfProducts.jsp">Назад</a>
         <input type="submit" value="Добавить"/></p>
