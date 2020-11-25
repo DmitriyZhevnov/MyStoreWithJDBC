@@ -3,6 +3,7 @@ package servlets;
 import classes.Person;
 import classes.Product;
 import classes.StorageOfProducts;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,8 @@ import java.io.IOException;
 
 @WebServlet("/shop")
 public class ShopServlet extends HttpServlet {
+
+    final static Logger logger = Logger.getLogger(ShopServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,6 +31,7 @@ public class ShopServlet extends HttpServlet {
             int countOfThisProductInStorage = thisProductInStorage.getCount();
             int countInRequest = Integer.parseInt(req.getParameter("count"));
             if (countOfThisProductInStorage < countInRequest) {
+                logger.info("Был не удовлетворен запрос на " + countInRequest + " единиц товара " + thisProductInStorage.getName());
                 req.getSession().setAttribute("shopMessage", "Приносим свои извинения. На складе осталось "
                         + countOfThisProductInStorage + " единиц. Товар не был добавлен в корзину.");
             } else if (countInRequest < 1) {

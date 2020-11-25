@@ -3,6 +3,7 @@ package servlets;
 import classes.Person;
 import classes.Product;
 import classes.StorageOfProducts;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

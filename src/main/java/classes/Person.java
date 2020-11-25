@@ -1,6 +1,9 @@
 package classes;
 
+import org.apache.log4j.Logger;
+
 public class Person {
+    final static Logger logger = Logger.getLogger(Person.class);
     private String name;
     private int age;
     private String login;
@@ -12,6 +15,8 @@ public class Person {
     private OrderHistory orderHistory;
 
     public Person(String name, int age, String login, String password, String status) {
+        logger.info("Новый пользователь " + login);
+
         this.name = name;
         this.age = age;
         this.login = login;
@@ -34,8 +39,10 @@ public class Person {
         orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).setPhoneNumber(phoneNumber);
         orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).setLogin(getLogin());
         StorageOfOrders.getOrderStorage().add(orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1));
+        if (logger.isInfoEnabled()){
+            logger.info("Новый заказ №"+ orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).getNumber());
+        }
         basket.removeAllFromBasket();
-        System.out.println(StorageOfOrders.getOrderStorage().toString());
     }
 
     public String getPhoneNumber() {
