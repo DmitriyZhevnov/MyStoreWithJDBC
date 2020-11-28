@@ -4,20 +4,36 @@ import classes.Person;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
-import java.util.concurrent.ExecutionException;
 
 public class DataBase {
-    final static String url = "jdbc:mysql://localhost/mystore?serverTimezone=UTC";
+    final static String url = "jdbc:mysql://localhost/myStore?serverTimezone=UTC";
     final static String userName = "root";
     final static String userPassword = "950621";
     final static Logger logger = Logger.getLogger(DataBase.class);
 
-    public static void registration(String name, int age, String login, String password){
+    public static boolean checkLoginInDB(String login) {
+        boolean exist = false;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, userName, userPassword)) {
+                String sqlQuery = "Select * from person where login = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+                preparedStatement.setString(1, login);
+                exist = preparedStatement.execute();
+            }
+        } catch (Exception e) {
+
+        } finally {
+            return exist;
+        }
+    }
+
+    public static void registration(String name, int age, String login, String password) {
         String sqlQuery = "INSERT into person ( name, age, login, password, status) " +
                 "VALUES (?,?,?,?, 'user')";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
-            try (Connection connection = DriverManager.getConnection(url, userName, userPassword)){
+            try (Connection connection = DriverManager.getConnection(url, userName, userPassword)) {
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
                 preparedStatement.setString(1, name);
                 preparedStatement.setInt(2, age);
@@ -25,7 +41,7 @@ public class DataBase {
                 preparedStatement.setString(4, password);
                 preparedStatement.executeUpdate();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             //обработка ошибки
         }
     }
