@@ -2,6 +2,7 @@ package servlets;
 
 import classes.StorageOfProducts;
 import classes.StorageOfUsers;
+import database.DataBase;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,10 +15,11 @@ import java.io.IOException;
 public class MainServlet extends HttpServlet {
     private StorageOfUsers storageOfUsers;
     private StorageOfProducts storageOfProducts;
-
+    private DataBase dataBase;
     @Override
     public void init() throws ServletException {
-        super.init();
+        //super.init();
+        dataBase = new DataBase();
         storageOfUsers = new StorageOfUsers();
         storageOfProducts = new StorageOfProducts();
     }

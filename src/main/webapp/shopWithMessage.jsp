@@ -42,7 +42,7 @@
         <td>
             <form action='/shop' method='POST'>
                 <input name="count"/>
-                <input type="hidden" name="idProduct" value="<%=StorageOfProducts.returnStorage().get(i).getId() %>"/>
+                <input type="hidden" name="idProduct" value="<%=StorageOfProducts.returnStorage().get(i).getSerialNumber() %>"/>
                 <input type='submit' value='Добавить'/>
             </form>
         </td>

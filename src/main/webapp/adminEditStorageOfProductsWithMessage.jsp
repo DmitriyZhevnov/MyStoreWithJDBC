@@ -27,8 +27,8 @@
             <form action="/admin" method="post">
                 <select name="idProductToAdd">
                     <% for (int t = 0; t < StorageOfProducts.returnStorage().size(); t++) { %>
-                    <option value="<%= StorageOfProducts.returnStorage().get(t).getId() %>">
-                        <%= StorageOfProducts.returnStorage().get(t).getId()%>
+                    <option value="<%= StorageOfProducts.returnStorage().get(t).getSerialNumber() %>">
+                        <%= StorageOfProducts.returnStorage().get(t).getSerialNumber()%>
                         - <%= StorageOfProducts.returnStorage().get(t).getName()%>
                     </option>
                     <% } %>
@@ -66,7 +66,7 @@
         for (int i = 0; i < StorageOfProducts.returnStorage().size(); i++) {
     %>
     <tr>
-        <td><%= StorageOfProducts.returnStorage().get(i).getId()%>
+        <td><%= StorageOfProducts.returnStorage().get(i).getSerialNumber()%>
         </td>
         <td><%= StorageOfProducts.returnStorage().get(i).getName()%>
         </td>
@@ -80,7 +80,7 @@
             <form action='/admin' method='POST'>
                 <input type="hidden" name="operation" value="modifyProduct">
                 <input type="hidden" name="idProductToModify"
-                       value="<%=StorageOfProducts.returnStorage().get(i).getId() %>"/>
+                       value="<%=StorageOfProducts.returnStorage().get(i).getSerialNumber() %>"/>
                 <input type='submit' value='Редактировать'/>
             </form>
         </td>
@@ -88,7 +88,7 @@
             <form action='/admin' method='POST'>
                 <input type="hidden" name="operation" value="deleteProduct">
                 <input type="hidden" name="idProductForDelete"
-                       value="<%=StorageOfProducts.returnStorage().get(i).getId() %>"/>
+                       value="<%=StorageOfProducts.returnStorage().get(i).getSerialNumber() %>"/>
                 <input type='submit' value='Удалить'/>
             </form>
         </td>

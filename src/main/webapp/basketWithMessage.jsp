@@ -49,14 +49,14 @@
             <form action='/basket' method='POST'>
                 <input type="hidden" name="operationInBasket" value="modifyProduct">
                 <input name="count" value="<%= basket.getBasket().get(i).getCount()%>"/>
-                <input type="hidden" name="idProduct" value="<%=basket.getBasket().get(i).getId() %>"/>
+                <input type="hidden" name="idProduct" value="<%=basket.getBasket().get(i).getSerialNumber() %>"/>
                 <input type='submit' value='Изменить'/>
             </form>
         </td>
         <td>
             <form action='/basket' method='POST'>
                 <input type="hidden" name="operationInBasket" value="deleteProduct">
-                <input type="hidden" name="idProduct" value="<%=basket.getBasket().get(i).getId() %>"/>
+                <input type="hidden" name="idProduct" value="<%=basket.getBasket().get(i).getSerialNumber() %>"/>
                 <input type='submit' value='Удалить'/>
             </form>
         </td>

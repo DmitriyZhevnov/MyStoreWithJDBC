@@ -21,7 +21,7 @@
     String message = (String) session.getAttribute("message");%>
 <p align="center"><%= message%>
     <form action="/admin" method="post">
-        ID товара: <input type="text" name="id" value=<%= product.getId() %>>
+        ID товара: <input type="text" name="serialNumber" value=<%= product.getSerialNumber() %>>
         <br/>
         Название: <input type="text" name="name" value=<%= product.getName() %>>
         <br/>

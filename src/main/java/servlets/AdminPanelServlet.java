@@ -50,12 +50,12 @@ public class AdminPanelServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/adminEditStorageEditProduct.jsp").forward(req, resp);
         } else if (req.getParameter("operation").equals("modifyProductWithValues")) {
             Product productToModify = StorageOfProducts.getProductInStorage((Product) req.getSession().getAttribute("productToModify"));
-            if (productToModify.getId() != Integer.parseInt(req.getParameter("id")) &&
-                    StorageOfProducts.returnStorage().stream().anyMatch(s -> s.getId() == Integer.parseInt(req.getParameter("id")))) {
+            if (productToModify.getSerialNumber() != Integer.parseInt(req.getParameter("id")) &&
+                    StorageOfProducts.returnStorage().stream().anyMatch(s -> s.getSerialNumber() == Integer.parseInt(req.getParameter("id")))) {
                 req.getSession().setAttribute("message", "Такой ID товара уже есть. Все изменения не вступили в силу.");
                 getServletContext().getRequestDispatcher("/adminEditStorageEditProductWithMessage.jsp").forward(req, resp);
             } else {
-                productToModify.setId(Integer.parseInt(req.getParameter("id")));
+                productToModify.setSerialNumber(Integer.parseInt(req.getParameter("id")));
                 productToModify.setName(req.getParameter("name"));
                 productToModify.setDescription(req.getParameter("description"));
                 productToModify.setPrice(Double.parseDouble(req.getParameter("price")));
@@ -92,7 +92,7 @@ public class AdminPanelServlet extends HttpServlet {
                 req.getSession().setAttribute("message", "Введите данные корректно.");
                 getServletContext().getRequestDispatcher("/adminAddProductWithMessage.jsp").forward(req, resp);
             } else {
-                if (StorageOfProducts.returnStorage().stream().anyMatch(s -> s.getId() == Integer.parseInt(req.getParameter("id")))) {
+                if (StorageOfProducts.returnStorage().stream().anyMatch(s -> s.getSerialNumber() == Integer.parseInt(req.getParameter("id")))) {
                     req.getSession().setAttribute("message", "Товар с этим ID уже есть. Новый товар не был добавлен.");
                     getServletContext().getRequestDispatcher("/adminAddProductWithMessage.jsp").forward(req, resp);
                 } else try {

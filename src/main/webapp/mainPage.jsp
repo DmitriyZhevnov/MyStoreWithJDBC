@@ -11,9 +11,9 @@
     <title>Главная страница</title>
 </head>
 <body>
-<%@ page import="classes.Person, classes.StorageOfUsers" %>
+<%@ page import="classes.Person" %>
 <% Person person = (Person) session.getAttribute("currentUser");
-    if (StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null) {
+    if (session.getAttribute("currentUser") == null) {
         session.setAttribute("currentUser", null);
         application.getRequestDispatcher("/Error").forward(request, response);
     }%>

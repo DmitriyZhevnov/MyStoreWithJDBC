@@ -18,7 +18,7 @@
         application.getRequestDispatcher("/Error").forward(request, response);
     } %>
 <form action="/admin" method="post">
-    ID товара: <input type="text" name="id" %>
+    ID товара: <input type="text" name="serialNumber" %>
     <br/>
     Название: <input type="text" name="name" %>
     <br/>

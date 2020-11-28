@@ -17,7 +17,7 @@ public class StorageOfProducts {
     }
 
     public static void addProduct(Product product, int countToAdd) {
-        if (storage.stream().anyMatch(s -> s.getId() == product.getId())) {
+        if (storage.stream().anyMatch(s -> s.getSerialNumber() == product.getSerialNumber())) {
             int firstCount = StorageOfProducts.getProductInStorage(product).getCount();
             StorageOfProducts.getProductInStorage(product).setCount(firstCount + countToAdd);
         } else {
@@ -27,16 +27,16 @@ public class StorageOfProducts {
     }
 
     public static Product getProductInStorageById(int id) {
-        if (storage.stream().anyMatch(s -> s.getId() == id)) {
-            return storage.stream().filter(s -> s.getId() == id).collect(Collectors.toList()).get(0);
+        if (storage.stream().anyMatch(s -> s.getSerialNumber() == id)) {
+            return storage.stream().filter(s -> s.getSerialNumber() == id).collect(Collectors.toList()).get(0);
         } else {
             return null;
         }
     }
 
     public static Product getProductInStorage(Product product) {
-        if (storage.stream().anyMatch(s -> s.getId() == product.getId())) {
-            return storage.stream().filter(s -> s.getId() == product.getId()).collect(Collectors.toList()).get(0);
+        if (storage.stream().anyMatch(s -> s.getSerialNumber() == product.getSerialNumber())) {
+            return storage.stream().filter(s -> s.getSerialNumber() == product.getSerialNumber()).collect(Collectors.toList()).get(0);
         } else {
             return null;
         }

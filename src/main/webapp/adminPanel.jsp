@@ -11,9 +11,9 @@
     <title>Админ-панель</title>
 </head>
 <body>
-<%@ page import="classes.StorageOfUsers, classes.Person" %>
+<%@ page import="classes.Person" %>
 <% Person person = (Person) session.getAttribute("currentUser");
-    if (!person.getStatus().equals("admin") || StorageOfUsers.findPersonInStorageByLogin(person.getLogin()) == null) {
+    if (!person.getStatus().equals("admin")) {
         session.setAttribute("currentUser", null);
         application.getRequestDispatcher("/Error").forward(request, response);
     }%>

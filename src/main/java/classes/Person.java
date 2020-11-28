@@ -15,8 +15,7 @@ public class Person {
     private OrderHistory orderHistory;
 
     public Person(String name, int age, String login, String password, String status) {
-        logger.info("Новый пользователь " + login);
-
+        logger.info("New user " + login);
         this.name = name;
         this.age = age;
         this.login = login;
@@ -40,7 +39,7 @@ public class Person {
         orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).setLogin(getLogin());
         StorageOfOrders.getOrderStorage().add(orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1));
         if (logger.isInfoEnabled()){
-            logger.info("Новый заказ №"+ orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).getNumber());
+            logger.info("New order №"+ orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).getNumber());
         }
         basket.removeAllFromBasket();
     }

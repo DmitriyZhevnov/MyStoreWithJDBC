@@ -8,8 +8,8 @@ public class Basket {
     private List<Product> basket = new ArrayList<>();
 
     public void addProductToBasket(Product product, int countToAdd) {
-        if (basket.stream().anyMatch(s -> s.getId() == product.getId())) {
-            int firstCount = basket.stream().filter(s -> s.getId() == product.getId()).collect(Collectors.toList())
+        if (basket.stream().anyMatch(s -> s.getSerialNumber() == product.getSerialNumber())) {
+            int firstCount = basket.stream().filter(s -> s.getSerialNumber() == product.getSerialNumber()).collect(Collectors.toList())
                     .get(0).getCount();
             getProductFromBasket(product).setCount(firstCount + countToAdd);
         } else {
@@ -39,16 +39,16 @@ public class Basket {
     }
 
     public Product getProductByIdFromBasket(int id) {
-        if (basket.stream().anyMatch(s -> s.getId() == id)) {
-            return basket.stream().filter(s -> s.getId() == id).collect(Collectors.toList()).get(0);
+        if (basket.stream().anyMatch(s -> s.getSerialNumber() == id)) {
+            return basket.stream().filter(s -> s.getSerialNumber() == id).collect(Collectors.toList()).get(0);
         } else {
             return null;
         }
     }
 
     public Product getProductFromBasket(Product product) {
-        if (basket.stream().anyMatch(s -> s.getId() == product.getId())) {
-            return basket.stream().filter(s -> s.getId() == product.getId()).collect(Collectors.toList()).get(0);
+        if (basket.stream().anyMatch(s -> s.getSerialNumber() == product.getSerialNumber())) {
+            return basket.stream().filter(s -> s.getSerialNumber() == product.getSerialNumber()).collect(Collectors.toList()).get(0);
         } else {
             return null;
         }

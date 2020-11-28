@@ -1,32 +1,32 @@
 package classes;
 
 public class Product {
-    private int id;
+    private int serialNumber;
     private String name;
     private String description;
     private double price;
     private int count;
 
     public Product(int id, String name, String description, double price) {
-        this.id = id;
+        this.serialNumber = id;
         this.name = name;
         this.description = description;
         this.price = price;
     }
 
     public Product(Product product) {
-        this.id = product.getId();
+        this.serialNumber = product.getSerialNumber();
         this.name = product.getName();
         this.description = product.getDescription();
         this.price = product.getPrice();
     }
 
-    public int getId() {
-        return id;
+    public int getSerialNumber() {
+        return serialNumber;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSerialNumber(int serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     public String getName() {
