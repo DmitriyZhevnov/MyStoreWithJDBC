@@ -1,5 +1,6 @@
 package classes;
 
+import database.DataBase;
 import org.apache.log4j.Logger;
 
 public class Person {
@@ -31,19 +32,20 @@ public class Person {
         return orderHistory;
     }
 
-    public void buyBasket() {
+    public int buyBasket() {
         basket.deleteFromStorageThatInTheBasket();
         orderHistory.addNewOrder(basket.getBasket());
         orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).setAddress(address);
         orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).setPhoneNumber(phoneNumber);
         orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).setLogin(getLogin());
         //
-        StorageOfOrders.getOrderStorage().add(orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1));
-        //
+        int numberOfOrder = DataBase.saveOrderInOrderHistory(login, basket );
+
         if (logger.isInfoEnabled()){
             logger.info("New order №"+ orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).getNumber());
         }
         basket.removeAllFromBasket();
+        return numberOfOrder;
     }
 
     public String getPhoneNumber() {

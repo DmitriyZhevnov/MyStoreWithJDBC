@@ -1,5 +1,6 @@
 package database;
 
+import classes.Basket;
 import classes.Person;
 import classes.Product;
 import classes.StorageOfProducts2;
@@ -11,6 +12,31 @@ public class DataBase {
 
     final static Logger logger = Logger.getLogger(DataBase.class);
 
+    public static int saveOrderInOrderHistory(String login, Basket basket){
+        int numberForNewOrder = 0;
+        try {
+            String sqlQuery = "insert into orders(login, serial_number, order_number, count_of_product) value(?, ?, ?, ?);";
+            String sqlForFindLastNumber = "select max(order_number) from orders";
+            Statement statement = DatabaseConnection.getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(sqlForFindLastNumber);
+
+            while (resultSet.next()){
+                numberForNewOrder = resultSet.getInt(1) + 1;
+            }
+            PreparedStatement preparedStatement = DatabaseConnection.getConnection().prepareStatement(sqlQuery);
+            preparedStatement.setString(1, login);
+            preparedStatement.setInt(3, numberForNewOrder);
+            for (Product productInBasket : basket.getBasket()){
+                preparedStatement.setInt(2, productInBasket.getSerialNumber());
+                preparedStatement.setInt(4, productInBasket.getCount());
+                preparedStatement.execute();
+            }
+        } catch (SQLException e){
+            ///обработка
+        }
+        return numberForNewOrder;
+    }
+
     public static void buyProductInStorage(Product product) {
         try{
             String sqlQuery = "Update product set count = count - ? where serial_number = ?";
@@ -19,7 +45,7 @@ public class DataBase {
             preparedStatement.setInt(2, product.getSerialNumber());
             preparedStatement.execute();
         } catch (SQLException e){
-
+            ///обработка
         }
     }
 
