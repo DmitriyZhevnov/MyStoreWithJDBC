@@ -1,23 +1,25 @@
 package classes;
 
+import database.DataBase;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class StorageOfProducts {
-    private static List<Product> storage = new ArrayList<>();
+public class StorageOfProducts2 {
+    private List<Product> storage = new ArrayList<>();
 
-    public static void addProduct(Product product, int countToAdd) {
+    public void addProduct(Product product, int countToAdd) {
         if (storage.stream().anyMatch(s -> s.getSerialNumber() == product.getSerialNumber())) {
-            int firstCount = storage.stream().filter(s-> s==product).collect(Collectors.toList()).get(0).getCount();
-            StorageOfProducts.getProductInStorage(product).setCount(firstCount + countToAdd);
+            ////// поправить метод
+            DataBase.addProductInStorage(product);
         } else {
             storage.add(product);
-            StorageOfProducts.getProductInStorage(product).setCount(countToAdd);
+            storage.stream().filter(s-> s==product).collect(Collectors.toList()).get(0).setCount(countToAdd);
         }
     }
 
-    public static Product getProductInStorageById(int id) {
+    public Product getProductInStorageById(int id) {
         if (storage.stream().anyMatch(s -> s.getSerialNumber() == id)) {
             return storage.stream().filter(s -> s.getSerialNumber() == id).collect(Collectors.toList()).get(0);
         } else {
@@ -25,7 +27,7 @@ public class StorageOfProducts {
         }
     }
 
-    public static Product getProductInStorage(Product product) {
+    public Product getProductInStorage(Product product) {
         if (storage.stream().anyMatch(s -> s.getSerialNumber() == product.getSerialNumber())) {
             return storage.stream().filter(s -> s.getSerialNumber() == product.getSerialNumber()).collect(Collectors.toList()).get(0);
         } else {
@@ -33,7 +35,7 @@ public class StorageOfProducts {
         }
     }
 
-    public static List<Product> returnStorage() {
+    public List<Product> returnStorage() {
         return storage;
     }
 }
