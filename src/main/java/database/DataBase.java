@@ -2,9 +2,7 @@ package database;
 
 import classes.Person;
 import classes.Product;
-import classes.StorageOfProducts;
 import classes.StorageOfProducts2;
-import com.mysql.cj.result.SqlDateValueFactory;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -13,24 +11,35 @@ public class DataBase {
 
     final static Logger logger = Logger.getLogger(DataBase.class);
 
+    public static void buyProductInStorage(Product product) {
+        try{
+            String sqlQuery = "Update product set count = count - ? where serial_number = ?";
+            PreparedStatement preparedStatement = DatabaseConnection.getConnection().prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, product.getCount());
+            preparedStatement.setInt(2, product.getSerialNumber());
+            preparedStatement.execute();
+        } catch (SQLException e){
 
-    public static void addProductInStorage(Product product){
-            try{
-                String sqlQuery = "Select * from product where serial_number = ?";
-                PreparedStatement preparedStatement = DatabaseConnection.getConnection().prepareStatement(sqlQuery);
-                preparedStatement.setInt(1, product.getSerialNumber());
-                if(preparedStatement.execute()){
-                    String sqlQueryAdd = "update product set count = count + ? where serial_number = ?";
-                    PreparedStatement preparedStatement2 = DatabaseConnection.getConnection().prepareStatement(sqlQueryAdd);
-                    preparedStatement2.setInt(1, product.getCount());
-                    preparedStatement2.setInt(2, product.getSerialNumber());
-                    preparedStatement2.execute();
-                } else {
+        }
+    }
 
-                }
-            }catch (SQLException e){
+    public static void addProductInStorage(Product product) {
+        try {
+            String sqlQuery = "Select * from product where serial_number = ?";
+            PreparedStatement preparedStatement = DatabaseConnection.getConnection().prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, product.getSerialNumber());
+            if (preparedStatement.execute()) {
+                String sqlQueryAdd = "update product set count = count + ? where serial_number = ?";
+                PreparedStatement preparedStatement2 = DatabaseConnection.getConnection().prepareStatement(sqlQueryAdd);
+                preparedStatement2.setInt(1, product.getCount());
+                preparedStatement2.setInt(2, product.getSerialNumber());
+                preparedStatement2.execute();
+            } else {
 
             }
+        } catch (SQLException e) {
+
+        }
     }
 
     public static StorageOfProducts2 getProductStorage() {
@@ -81,8 +90,7 @@ public class DataBase {
         Person currentPerson = null;
         try {
             Statement statement = DatabaseConnection.getConnection().createStatement();
-            ResultSet resultSet = null;
-            resultSet = statement.executeQuery("SELECT * FROM person");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM person");
             while (resultSet.next()) {
                 if (resultSet.getString("login").equals(login) && resultSet.getString("password").equals(password)) {
                     currentPerson = new Person(resultSet.getString("name"), resultSet.getInt("age"),

@@ -53,7 +53,7 @@ public class ShopServlet extends HttpServlet {
         person.getBasket().addProductToBasket(thisProductInStorage, countInRequest);
         req.getSession().setAttribute("shopMessage", (thisProductInStorage.getName() + " добавлено в корзину."));
 //            }
-//            getServletContext().getRequestDispatcher("/shopWithMessage.jsp").forward(req, resp);
+            getServletContext().getRequestDispatcher("/shopWithMessage.jsp").forward(req, resp);
 //
 //        } catch (NumberFormatException e) {
 //

@@ -32,22 +32,22 @@ public class BasketServlet extends HttpServlet {
                 Product thisProductInBasket = person.getBasket().getProductByIdFromBasket(Integer
                         .parseInt(req.getParameter("idProduct")));
                 int countInRequest = Integer.parseInt(req.getParameter("count"));
-                int countOfThisProductInStorage = StorageOfProducts.getProductInStorage(thisProductInBasket).getCount();
+                //int countOfThisProductInStorage = StorageOfProducts.getProductInStorage(thisProductInBasket).getCount();
                 if (countInRequest == 0) {
                     req.getSession().setAttribute("shopMessage", "Значение 0 - недопустимо. Просто удалите заказ.");
                     getServletContext().getRequestDispatcher("/basketWithMessage.jsp").forward(req, resp);
-                } else if (countInRequest >= 1) {
-                    if (countInRequest > countOfThisProductInStorage) {
-                        req.getSession().setAttribute("shopMessage", "Приносим свои извинения. На складе осталось "
-                                + countOfThisProductInStorage + " единиц(а). Изменения не вступили в силу.");
+//                } else if (countInRequest >= 1) {
+//                    if (countInRequest > countOfThisProductInStorage) {
+//                        req.getSession().setAttribute("shopMessage", "Приносим свои извинения. На складе осталось "
+//                                + countOfThisProductInStorage + " единиц(а). Изменения не вступили в силу.");
                     } else {
                         thisProductInBasket.setCount(countInRequest);
                         req.getSession().setAttribute("shopMessage", ("Количество " + thisProductInBasket.getName() + " изменено"));
                     }
                     getServletContext().getRequestDispatcher("/basketWithMessage.jsp").forward(req, resp);
-                } else {
-                    throw new NumberFormatException();
-                }
+//                } else {
+//                    throw new NumberFormatException();
+//                }
             } catch (NumberFormatException e) {
                 req.getSession().setAttribute("shopMessage", "Количество было введено не корректно.");
                 getServletContext().getRequestDispatcher("/basketWithMessage.jsp").forward(req, resp);

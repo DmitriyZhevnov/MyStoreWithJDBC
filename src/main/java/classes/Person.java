@@ -37,7 +37,9 @@ public class Person {
         orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).setAddress(address);
         orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).setPhoneNumber(phoneNumber);
         orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).setLogin(getLogin());
+        //
         StorageOfOrders.getOrderStorage().add(orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1));
+        //
         if (logger.isInfoEnabled()){
             logger.info("New order №"+ orderHistory.getOrderHistory().get(orderHistory.getOrderHistory().size() - 1).getNumber());
         }

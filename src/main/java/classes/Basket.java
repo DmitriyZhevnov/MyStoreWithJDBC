@@ -1,5 +1,7 @@
 package classes;
 
+import database.DataBase;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,9 +58,7 @@ public class Basket {
 
     public void deleteFromStorageThatInTheBasket() {
         for (Product product : basket) {
-            Product thisProductInStorage = StorageOfProducts.getProductInStorage(product);
-            int firstCountOfCountInStorage = thisProductInStorage.getCount();
-            StorageOfProducts.getProductInStorage(product).setCount(firstCountOfCountInStorage - product.getCount());
+            DataBase.buyProductInStorage(product);
         }
     }
 
